@@ -24,7 +24,8 @@ src/test/java/io/github/apisecurity/
 ├── data/         # Massa dinâmica e independente
 ├── functional/   # Cenários de happy path
 ├── model/        # Payloads e respostas necessários
-└── security/     # Cenários negativos permitidos
+├── security/     # Cenários negativos permitidos
+└── tooling/      # Preparação offline e opt-in de artefatos
 ```
 
 Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md) e a preparação da Fase 6 está em [docs/dast-plan.md](docs/dast-plan.md).
@@ -117,7 +118,7 @@ mvn test -Dgroups=input-validation
 Executar a baseline controlada de consumo de recursos da Fase 5:
 
 ```bash
-mvn test -Dgroups=resource-abuse -Dexcluded.test.groups=__none__
+mvn test -Dgroups=resource-abuse "-Dexcluded.test.groups=__none__"
 ```
 
 O grupo `resource-abuse` é excluído por padrão, inclusive de `mvn test` e do grupo geral `security`, para impedir repetição acidental do tráfego controlado.
@@ -176,6 +177,8 @@ A baseline controlada da Fase 5 está aprovada dentro desses limites. O resultad
 ## Preparação de DAST
 
 A Fase 6 possui apenas planejamento estrutural. O ZAP não foi instalado nem executado. O futuro scan deverá usar safe mode, imagem oficial fixada por digest e uma OpenAPI temporária contendo somente signup, login e dashboard. Mesmo em safe mode, a importação pode gerar tráfego; por isso, a execução depende de orçamento e autorização próprios.
+
+A OpenAPI reduzida pode ser preparada offline pelo grupo Maven opt-in `tooling`, conforme `docs/dast-plan.md`. O gerador valida o SHA-256 da especificação oficial e grava somente em `target/zap/`; ele não inicia containers nem acessa a crAPI.
 
 ## Roadmap resumido
 
