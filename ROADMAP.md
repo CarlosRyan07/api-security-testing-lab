@@ -7,7 +7,7 @@
 | 2 | Authentication Security | Baseline não destrutiva concluída e validada live |
 | 3 | Authorization Security | Pendente por limitação do ambiente/ferramenta |
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
-| 5 | Resource Abuse | Planejada |
+| 5 | Resource Abuse | Em andamento; execução controlada interrompida pelo limite de latência |
 | 6 | DAST com OWASP ZAP | Planejada |
 | 7 | CI/CD Security com GitHub Actions e Gitleaks | Planejada |
 | 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
@@ -24,4 +24,4 @@ Enquanto essa restrição permanecer, o trabalho pode continuar apenas em organi
 
 A baseline segura da Fase 4 está concluída. Mass assignment, parameter tampering e autorização de propriedades permanecem sem implementação enquanto dependerem de conteúdo ou execução indisponível no ambiente.
 
-A Fase 5 permanece planejada. Nenhum teste de rate limiting, carga, exaustão de recursos ou negação de serviço será executado sem orçamento de requests, janela, critério de interrupção e autorização explícitos.
+A Fase 5 foi iniciada com autorização explícita para no máximo dez requisições sequenciais em dez segundos, latência máxima individual de dois segundos e interrupção em HTTP 5xx, estouro da janela ou ambiente não saudável. A primeira execução parou após 1/10 requisições: o signup levou 2.164 ms. Login e dashboard não foram chamados, a fase não está concluída e nenhuma vulnerabilidade de consumo de recursos foi confirmada. Não houve teste de rate limiting, concorrência, carga, exaustão de recursos ou negação de serviço.

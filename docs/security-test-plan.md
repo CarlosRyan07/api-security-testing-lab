@@ -68,9 +68,11 @@ A baseline de validação de entrada cobre cadastro duplicado; objeto vazio; cor
 
 Não há cobertura executada de mass assignment, parameter tampering ou autorização de propriedades.
 
-## Preparação da Fase 5
+## Execução controlada da Fase 5
 
-Resource Abuse permanece somente planejada. Antes de qualquer execução serão necessários orçamento máximo de requests, janela de tempo, critério de interrupção, endpoint oficialmente confirmado e autorização explícita. Carga e negação de serviço continuam fora de escopo.
+A execução foi autorizada com orçamento total de dez chamadas sequenciais em dez segundos: um signup, um login e até oito acessos autenticados ao dashboard. Os critérios de interrupção são qualquer HTTP 5xx, latência individual acima de dois segundos, estouro da janela ou ambiente não saudável. Carga, concorrência e negação de serviço continuam fora de escopo.
+
+Na primeira execução live, o signup levou 2.164 ms. O teste falhou e interrompeu após 1/10 chamadas, antes de emitir login ou acessar o dashboard. O resultado é inconclusivo para Resource Abuse e não valida vulnerabilidade nem ausência de vulnerabilidade.
 
 ## Ferramentas
 

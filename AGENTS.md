@@ -7,5 +7,5 @@
 - Mantenha configuração, clientes HTTP, dados de teste, modelos e testes separados, sem abstrações prematuras.
 - Trabalhe incrementalmente: compile, execute o menor grupo relevante de testes, revise o diff e só então prossiga.
 - Nunca transforme indisponibilidade do sistema sob teste em sucesso e não registre tokens completos.
-- Use os comandos de validação: `mvn test-compile`, `mvn test -Dgroups=unit`, `mvn test -Dgroups=functional`, `mvn test -Dgroups=authentication`, `mvn test -Dgroups=input-validation`, `mvn test -Dgroups=security` e `mvn test`.
+- Use os comandos de validação: `mvn test-compile`, `mvn test -Dgroups=unit`, `mvn test -Dgroups=functional`, `mvn test -Dgroups=authentication`, `mvn test -Dgroups=input-validation`, `mvn test -Dgroups=resource-abuse`, `mvn test -Dgroups=security` e `mvn test`.
 - Mantenha a documentação detalhada do projeto e de segurança em `README.md`, `ROADMAP.md` e `docs/`.

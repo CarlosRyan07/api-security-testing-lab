@@ -114,6 +114,12 @@ Executar apenas a baseline de validação de entrada da Fase 4:
 mvn test -Dgroups=input-validation
 ```
 
+Executar a baseline controlada de consumo de recursos da Fase 5:
+
+```bash
+mvn test -Dgroups=resource-abuse
+```
+
 Executar toda a suíte atual:
 
 ```bash
@@ -150,6 +156,12 @@ A baseline permitida da Fase 4 cobre cadastro duplicado; objeto vazio; corpo JSO
 Mass assignment, parameter tampering e exploração de propriedades não foram implementados.
 
 A baseline segura da Fase 4 está concluída. A Fase 5 não executará rate limiting, carga ou negação de serviço sem limites e autorização explícitos.
+
+## Resource Abuse controlado
+
+A Fase 5 possui uma única execução sequencial autorizada com orçamento total de dez chamadas: um signup, um login e até oito acessos ao dashboard em uma janela de dez segundos. O teste interrompe imediatamente diante de HTTP 5xx, latência individual acima de dois segundos ou estouro da janela. Não há concorrência, carga ou conclusão automática sobre rate limiting.
+
+Na primeira execução, o signup consumiu somente a primeira chamada e levou 2.164 ms, ultrapassando o limite de 2.000 ms. O teste falhou e interrompeu antes de login ou dashboard. Esse resultado mantém a fase inconclusiva e não confirma vulnerabilidade.
 
 ## Roadmap resumido
 
