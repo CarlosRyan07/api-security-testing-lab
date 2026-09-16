@@ -25,6 +25,10 @@ O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e recebe apena
 
 O arquivo `.github/dependabot.yml` solicita atualizações semanais para Maven e GitHub Actions, limitado a cinco pull requests abertos por ecossistema. Toda atualização deve passar pelos mesmos checks e ser revisada antes do merge.
 
+A política Maven preserva as linhas aprovadas da baseline: ignora atualizações major do JUnit Jupiter e atualizações minor ou major do Maven Compiler Plugin. Atualizações patch continuam elegíveis, assim como atualizações de segurança, que não são bloqueadas por filtros de `update-types` aplicados a version updates.
+
+As primeiras propostas foram triadas e encerradas sem merge: o [PR #1](https://github.com/CarlosRyan07/api-security-testing-lab/pull/1) propunha Maven Compiler Plugin 3.16.0 fora da linha 3.14.x aprovada; o [PR #2](https://github.com/CarlosRyan07/api-security-testing-lab/pull/2) propunha a migração major para JUnit 6.1.3, enquanto o projeto exige JUnit 5.14.4. Checks verdes não substituíram a decisão explícita de compatibilidade.
+
 ## Proteção da branch
 
 A branch `master` está protegida no GitHub desde 16 de setembro de 2026. A configuração foi consultada novamente após a aplicação e exige os contextos emitidos pelo app oficial GitHub Actions:
