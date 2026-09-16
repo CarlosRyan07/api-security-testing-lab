@@ -204,7 +204,7 @@ A Fase 7 separa dois checks de GitHub Actions:
 - `CI Java / Testes unitários`: configura Java 17, executa `test-compile` e os testes com tag `unit`, sem acessar a crAPI.
 - `Gitleaks / Segredos`: examina os commits do evento com Gitleaks 8.30.1 e não publica artefatos ou comentários.
 
-As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os dois checks passaram na primeira execução remota. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, os resultados e a proteção de branch recomendada.
+As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os dois checks passaram na primeira execução remota e agora são obrigatórios em `master`, inclusive para o administrador. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, os resultados e a proteção aplicada à branch.
 
 ## Vulnerability Reporting e regressão
 
