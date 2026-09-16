@@ -36,7 +36,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 - crAPI oficial da branch `main`, executada externamente por Docker Compose.
 - URL fornecida por `BASE_URL`; fallback local `http://localhost:8888`.
 - Java 17, Maven, JUnit 5 e REST Assured.
-- Dados de usuário gerados por teste.
+- Dados de usuário gerados por teste com sequência thread-safe e unicidade garantida durante a execução.
 - Resolução de `BASE_URL` coberta por testes unitários que não acessam o sistema sob teste.
 
 ## Categorias

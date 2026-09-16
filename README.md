@@ -74,6 +74,8 @@ BASE_URL=http://localhost:8888 mvn test -Dgroups=functional
 
 `BASE_URL` deve ser uma URL HTTP ou HTTPS válida. Espaços externos e barras finais são normalizados; valores vazios, malformados, sem host ou com outro protocolo são rejeitados. Nenhum JWT ou credencial preexistente é necessário: cada teste cria seu próprio usuário.
 
+A massa usa uma sequência thread-safe iniciada dinamicamente para garantir, durante cada execução, nome, e-mail `example.com`, telefone de dez dígitos e senha distintos. O mapeamento de signup para login reutiliza somente e-mail e senha.
+
 ## Comandos
 
 Compilar o projeto e os testes sem acessar a crAPI:

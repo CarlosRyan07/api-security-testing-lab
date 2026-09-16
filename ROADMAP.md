@@ -14,7 +14,7 @@
 
 ## Estado atual
 
-A Fase 0 compila com JDK 17 e possui dez verificações unitárias da resolução de `BASE_URL`. A Fase 1 foi validada contra uma instância da branch oficial `main` da crAPI: os três cenários funcionais passaram, sem falhas, erros ou skips. O dashboard autenticado valida `Content-Type` JSON, identidade, papel, presença de todas as propriedades obrigatórias e os tipos numéricos declarados pela OpenAPI. A baseline não destrutiva da Fase 2 foi validada com quatro cenários de autenticação. A baseline permitida da Fase 4 possui vinte e três casos: cadastro duplicado; objeto vazio em signup e login; quatro tipos raiz não objeto em ambos; ausência individual e valor `null` nos quatro campos obrigatórios do signup e nos dois campos obrigatórios do login. Os testes continuam falhando explicitamente quando o sistema sob teste está indisponível.
+A Fase 0 compila com JDK 17 e possui treze verificações unitárias da configuração, da massa dinâmica e do mapeamento de credenciais. A Fase 1 foi validada contra uma instância da branch oficial `main` da crAPI: os três cenários funcionais passaram, sem falhas, erros ou skips. O dashboard autenticado valida `Content-Type` JSON, identidade, papel, presença de todas as propriedades obrigatórias e os tipos numéricos declarados pela OpenAPI. A baseline não destrutiva da Fase 2 foi validada com quatro cenários de autenticação. A baseline permitida da Fase 4 possui vinte e três casos: cadastro duplicado; objeto vazio em signup e login; quatro tipos raiz não objeto em ambos; ausência individual e valor `null` nos quatro campos obrigatórios do signup e nos dois campos obrigatórios do login. Os testes continuam falhando explicitamente quando o sistema sob teste está indisponível.
 
 ## Próxima etapa
 
