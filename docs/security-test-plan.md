@@ -24,7 +24,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 
 ## Abordagem
 
-1. Confirmar o contrato na documentação e OpenAPI oficiais.
+1. Confirmar o contrato na documentação e OpenAPI oficiais e registrar a versão em `docs/contract-baseline.md`.
 2. Estabelecer o comportamento funcional esperado.
 3. Criar cenário de segurança pequeno, independente e nomeado pelo objetivo.
 4. Executar com dados dinâmicos e volume mínimo.

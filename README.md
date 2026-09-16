@@ -27,7 +27,7 @@ src/test/java/io/github/apisecurity/
 └── security/     # Cenários negativos permitidos
 ```
 
-Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), e a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md).
+Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md) e a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md).
 
 ## Pré-requisitos
 
