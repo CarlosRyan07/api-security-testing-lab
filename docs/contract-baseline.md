@@ -35,6 +35,8 @@ Na instância oficial executada localmente:
 - dashboard sem token ou com token malformado retornou `404`;
 - payloads inválidos cobertos pela baseline de entrada retornaram `400`.
 
+As respostas `200` de signup, login e dashboard foram confirmadas como `application/json`.
+
 Os status `400` de signup/login e `401` de login não estão declarados nas respectivas operações da OpenAPI consultada. Eles são tratados como drift de contrato observado, não como vulnerabilidades confirmadas.
 
 ## Regra de atualização

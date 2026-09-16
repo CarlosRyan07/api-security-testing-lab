@@ -50,7 +50,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 
 ## Execução atual
 
-A baseline funcional valida o fluxo completo de signup, login e dashboard. A resposta autenticada do dashboard é JSON e cobre identidade, papel, presença das dez propriedades obrigatórias e tipos numéricos declarados na OpenAPI oficial.
+A baseline funcional valida o fluxo completo de signup, login e dashboard. As três respostas bem-sucedidas são JSON. A resposta autenticada do dashboard cobre identidade, papel, presença das dez propriedades obrigatórias e tipos numéricos declarados na OpenAPI oficial.
 
 A baseline não destrutiva de Authentication Security da Fase 2 cobre quatro rejeições de baixo impacto: credenciais desconhecidas, senha incorreta para usuário existente, dashboard sem Bearer Token e dashboard com JWT malformado. Os cenários usam apenas endpoints documentados e foram validados contra a branch oficial `main`. Respostas de login rejeitadas não podem conter token, e respostas rejeitadas do dashboard não podem conter seus campos de identidade.
 

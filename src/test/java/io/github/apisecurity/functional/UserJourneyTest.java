@@ -32,7 +32,8 @@ class UserJourneyTest {
 
         authClient.signup(user)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .contentType(ContentType.JSON);
     }
 
     @Test
@@ -76,12 +77,15 @@ class UserJourneyTest {
     private void register(SignupRequest user) {
         authClient.signup(user)
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .contentType(ContentType.JSON);
     }
 
     private JwtResponse login(SignupRequest user) {
         Response response = authClient.login(LoginRequest.from(user));
-        response.then().statusCode(200);
+        response.then()
+                .statusCode(200)
+                .contentType(ContentType.JSON);
         return response.as(JwtResponse.class);
     }
 }

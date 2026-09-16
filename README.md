@@ -131,7 +131,7 @@ Se a crAPI estiver indisponível, os testes falham explicitamente em vez de sere
 5. Acessa o dashboard com Bearer Token.
 6. Confirma que o dashboard pertence ao usuário criado, possui papel `ROLE_USER` e contém todas as propriedades obrigatórias declaradas no contrato.
 
-O dashboard também é validado como JSON, com `id`, `available_credit` e `video_id` numéricos. As propriedades obrigatórias que podem vir nulas no exemplo oficial (`picture_url`, `video_name` e `video_url`) são verificadas por presença, sem inventar restrições de valor.
+As respostas bem-sucedidas de signup, login e dashboard são validadas como JSON. No dashboard, `id`, `available_credit` e `video_id` devem ser numéricos. As propriedades obrigatórias que podem vir nulas no exemplo oficial (`picture_url`, `video_name` e `video_url`) são verificadas por presença, sem inventar restrições de valor.
 
 Os modelos de resposta mapeiam somente os campos documentados na OpenAPI oficial. Campos adicionais retornados pela aplicação são ignorados na desserialização e não recebem asserções nem significado inventado pelo projeto.
 
