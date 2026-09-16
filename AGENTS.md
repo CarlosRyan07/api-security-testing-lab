@@ -11,4 +11,5 @@
 - O cenário controlado da Fase 5 é excluído por padrão e só pode ser executado após autorização explícita com `mvn test -Dgroups=resource-abuse "-Dexcluded.test.groups=__none__"`.
 - Não execute OWASP ZAP sem autorização específica, OpenAPI temporária reduzida aos três endpoints permitidos, imagem fixada por digest e controles de interrupção descritos em `docs/dast-plan.md`.
 - Gere a OpenAPI reduzida somente pelo teste opt-in documentado, mantendo o grupo `tooling` excluído da suíte padrão.
+- Use `scripts/Invoke-ControlledZapScan.ps1` apenas em modo de planejamento até que imagem, orçamento e execução sejam autorizados explicitamente; o modo de execução exige a confirmação literal documentada.
 - Mantenha a documentação detalhada do projeto e de segurança em `README.md`, `ROADMAP.md` e `docs/`.

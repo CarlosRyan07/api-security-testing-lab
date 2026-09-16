@@ -180,6 +180,18 @@ A Fase 6 possui apenas planejamento estrutural. O ZAP não foi instalado nem exe
 
 A OpenAPI reduzida pode ser preparada offline pelo grupo Maven opt-in `tooling`, conforme `docs/dast-plan.md`. O gerador valida o SHA-256 da especificação oficial e grava somente em `target/zap/`; ele não inicia containers nem acessa a crAPI.
 
+O gateway `DastTrafficGate` e o wrapper `scripts/Invoke-ControlledZapScan.ps1` aplicam os controles externos planejados. O gateway processa uma chamada por vez, encaminha somente os três método/paths permitidos, rejeita query strings e cabeçalhos `Authorization`, limita o corpo a 64 KiB e interrompe diante de operação fora do escopo, tentativa acima do orçamento, HTTP 5xx, indisponibilidade do upstream ou duração superior a dois minutos. Seu estado contém apenas motivo e contagem, sem payloads ou credenciais.
+
+O wrapper funciona em modo de planejamento por padrão. Este exemplo apenas valida e exibe o plano, sem iniciar Docker ou acessar a crAPI; substitua o valor ilustrativo por um digest oficial real antes de uma futura execução autorizada:
+
+```powershell
+.\scripts\Invoke-ControlledZapScan.ps1 `
+  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:<digest-sha256>" `
+  -OrcamentoRequests 10
+```
+
+O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A imagem precisa estar disponível localmente e fixada por digest. A autorização, o digest e o orçamento live ainda não foram definidos; portanto, nenhum exemplo deste README representa uma execução aprovada.
+
 ## Roadmap resumido
 
 As baselines das Fases 1, 2, 4 e 5 estão implementadas e validadas dentro dos limites registrados. A Fase 3 permanece pendente pela restrição do ambiente, a Fase 6 possui somente preparação estrutural e as Fases 7–8 continuam planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

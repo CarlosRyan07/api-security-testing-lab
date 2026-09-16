@@ -2,7 +2,7 @@
 
 ## Estado
 
-Preparação estrutural concluída. Nenhuma imagem ZAP foi baixada e nenhum scan foi executado.
+Preparação estrutural offline concluída. Nenhuma imagem ZAP foi baixada e nenhum scan foi executado.
 
 ## Fontes oficiais
 
@@ -42,17 +42,48 @@ mvn test -Dgroups=tooling "-Dexcluded.test.groups=__none__" `
 - Relatórios JSON e Markdown somente em `target/zap/`, já ignorado pelo Git.
 - Nenhum JWT, senha ou credencial será incluído em arquivos, argumentos ou relatórios versionados.
 
+## Gateway e orquestração
+
+`DastTrafficGate` atua entre o ZAP e a crAPI. Ele processa uma chamada por vez, possui allowlist exata para os três método/paths autorizados, não aceita query strings nem `Authorization`, limita cada corpo a 64 KiB e não grava payloads. Toda tentativa recebida entra na contagem; a chamada que ultrapassa o orçamento é rejeitada sem chegar à crAPI. A URL upstream deve apontar para a raiz HTTP/HTTPS e não pode conter credenciais.
+
+O gateway encerra com motivo próprio diante de orçamento excedido, operação fora do escopo, cabeçalho de autenticação, HTTP 5xx, falha de conexão ou timeout. O estado gravado em `target/zap/gate-status.json` contém somente motivo, total recebido e orçamento. A interface de controle é vinculada ao loopback, enquanto a porta de tráfego fica disponível ao Docker.
+
+O wrapper `scripts/Invoke-ControlledZapScan.ps1`:
+
+- opera em modo de planejamento por padrão, sem iniciar processos ou fazer chamadas HTTP;
+- exige imagem GHCR fixada por digest, orçamento explícito de 1 a 50 requests e duração de no máximo dois minutos;
+- nunca baixa imagens e usa `docker run --pull=never`;
+- exige `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO` para iniciar o fluxo;
+- verifica antes e durante a execução os containers informados em `-ContainersSaude`;
+- executa somente `zap-api-scan.py -S`, sem regras alpha ou autenticação automatizada;
+- interrompe exclusivamente o container ZAP nomeado pela própria execução;
+- remove somente os sete artefatos temporários conhecidos antes de executar, evitando confusão com resultados antigos;
+- preserva os códigos de saída `0`, `1`, `2` e `3` do API Scan;
+- mantém status, logs e relatórios apenas em `target/zap/`.
+
+Exemplo seguro de planejamento, com digest ilustrativo a ser substituído:
+
+```powershell
+.\scripts\Invoke-ControlledZapScan.ps1 `
+  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:<digest-sha256>" `
+  -OrcamentoRequests 10
+```
+
+O modo live não deve ser usado enquanto digest, orçamento e autorização específica não forem registrados.
+
 ## Controles obrigatórios antes da execução
 
 1. Confirmar que a crAPI local e seus containers estão saudáveis.
 2. Fixar e registrar o digest da imagem ZAP oficial.
 3. Gerar a OpenAPI reduzida sem alterar a fonte oficial usando o grupo opt-in `tooling`.
 4. Validar automaticamente que existem somente três paths e três operações; este controle já é aplicado pelo gerador.
-5. Implementar monitor externo para interromper o container diante de HTTP 5xx, ambiente não saudável, duração acima de dois minutos ou orçamento de requests excedido.
+5. Usar o gateway e o wrapper já implementados para interromper o container diante de HTTP 5xx, ambiente não saudável, duração acima de dois minutos ou orçamento de requests excedido.
 6. Definir e autorizar explicitamente o orçamento máximo de requests.
 7. Revisar os relatórios quanto a tokens, credenciais e dados de usuário antes de registrar qualquer resultado.
 
 Sem esses controles, o scan não deve ser iniciado.
+
+Os itens 3, 4 e 5 foram implementados e validados offline. Os itens 1, 2 e 6 devem ser novamente confirmados para cada execução live; o item 7 só pode ocorrer depois de uma execução autorizada.
 
 ## Resultado e códigos de saída
 

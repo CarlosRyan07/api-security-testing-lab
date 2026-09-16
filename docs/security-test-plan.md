@@ -78,7 +78,7 @@ A baseline controlada está concluída, preservando a variação inicial como ri
 
 ## Preparação da Fase 6
 
-O plano de DAST está em `docs/dast-plan.md`. A execução prevista usa o API Scan oficial do ZAP em safe mode, mas reconhece que a importação da OpenAPI ainda pode gerar tráfego. Por isso, a especificação completa da crAPI não será usada. Um gerador Java opt-in foi validado offline para produzir em `target/zap/` um artefato temporário com exatamente signup, login e dashboard, após conferir o SHA-256 da especificação oficial. Nenhuma imagem foi baixada e nenhum scan foi executado.
+O plano de DAST está em `docs/dast-plan.md`. A execução prevista usa o API Scan oficial do ZAP em safe mode, mas reconhece que a importação da OpenAPI ainda pode gerar tráfego. Por isso, a especificação completa da crAPI não será usada. Um gerador Java opt-in foi validado offline para produzir em `target/zap/` um artefato temporário com exatamente signup, login e dashboard, após conferir o SHA-256 da especificação oficial. Um gateway externo testado localmente limita método, path, corpo, orçamento e duração, interrompendo em desvios de escopo, HTTP 5xx ou indisponibilidade. O wrapper verifica também a saúde dos containers e preserva o código de saída oficial do ZAP. Nenhuma imagem foi baixada e nenhum scan foi executado.
 
 ## Ferramentas
 
