@@ -159,9 +159,9 @@ A baseline segura da Fase 4 está concluída. A Fase 5 não executará rate limi
 
 ## Resource Abuse controlado
 
-A Fase 5 possui uma única execução sequencial autorizada com orçamento total de dez chamadas: um signup, um login e até oito acessos ao dashboard em uma janela de dez segundos. O teste interrompe imediatamente diante de HTTP 5xx, latência individual acima de dois segundos ou estouro da janela. Não há concorrência, carga ou conclusão automática sobre rate limiting.
+A baseline da Fase 5 é executada sequencialmente, e cada execução autorizada possui orçamento total de dez chamadas: um signup, um login e até oito acessos ao dashboard em uma janela de dez segundos. O teste interrompe imediatamente diante de HTTP 5xx, latência individual acima de dois segundos ou estouro da janela. Não há concorrência, carga ou conclusão automática sobre rate limiting.
 
-Na primeira execução, o signup consumiu somente a primeira chamada e levou 2.164 ms, ultrapassando o limite de 2.000 ms. O teste falhou e interrompeu antes de login ou dashboard. Esse resultado mantém a fase inconclusiva e não confirma vulnerabilidade.
+Na primeira execução, o signup consumiu somente a primeira chamada e levou 2.164 ms, ultrapassando o limite de 2.000 ms. O teste falhou e interrompeu antes de login ou dashboard. Após confirmação para continuar, uma segunda execução independente completou as 10/10 chamadas dentro de todos os limites. Como houve resultados divergentes sem alteração do teste ou do SUT, a fase permanece inconclusiva e não confirma vulnerabilidade nem estabilidade consistente.
 
 ## Roadmap resumido
 

@@ -70,9 +70,9 @@ Não há cobertura executada de mass assignment, parameter tampering ou autoriza
 
 ## Execução controlada da Fase 5
 
-A execução foi autorizada com orçamento total de dez chamadas sequenciais em dez segundos: um signup, um login e até oito acessos autenticados ao dashboard. Os critérios de interrupção são qualquer HTTP 5xx, latência individual acima de dois segundos, estouro da janela ou ambiente não saudável. Carga, concorrência e negação de serviço continuam fora de escopo.
+Cada execução é autorizada separadamente com orçamento total de dez chamadas sequenciais em dez segundos: um signup, um login e até oito acessos autenticados ao dashboard. Os critérios de interrupção são qualquer HTTP 5xx, latência individual acima de dois segundos, estouro da janela ou ambiente não saudável. Carga, concorrência e negação de serviço continuam fora de escopo.
 
-Na primeira execução live, o signup levou 2.164 ms. O teste falhou e interrompeu após 1/10 chamadas, antes de emitir login ou acessar o dashboard. O resultado é inconclusivo para Resource Abuse e não valida vulnerabilidade nem ausência de vulnerabilidade.
+Na primeira execução live, o signup levou 2.164 ms. O teste falhou e interrompeu após 1/10 chamadas, antes de emitir login ou acessar o dashboard. Depois de nova autorização, uma segunda execução independente completou 10/10 chamadas dentro da latência e da janela definidas, sem HTTP 5xx. Os resultados divergentes mantêm a Fase 5 inconclusiva e não validam vulnerabilidade, ausência de vulnerabilidade ou estabilidade consistente.
 
 ## Ferramentas
 
