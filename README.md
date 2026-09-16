@@ -26,11 +26,12 @@ src/test/java/io/github/apisecurity/
 ├── data/         # Massa dinâmica e independente
 ├── functional/   # Cenários de happy path
 ├── model/        # Payloads e respostas necessários
+├── reporting/    # Consistência do catálogo e dos relatórios
 ├── security/     # Cenários negativos permitidos
 └── tooling/      # Preparação offline e opt-in de artefatos
 ```
 
-Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md), a execução da Fase 6 está em [docs/dast-results.md](docs/dast-results.md) e os controles da Fase 7 estão em [docs/cicd-security.md](docs/cicd-security.md).
+Detalhes das fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md), a execução da Fase 6 está em [docs/dast-results.md](docs/dast-results.md), os controles da Fase 7 estão em [docs/cicd-security.md](docs/cicd-security.md) e a gestão de achados da Fase 8 está em [docs/vulnerability-management.md](docs/vulnerability-management.md).
 
 ## Pré-requisitos
 
@@ -125,6 +126,8 @@ mvn test -Dgroups=resource-abuse "-Dexcluded.test.groups=__none__"
 
 O grupo `resource-abuse` é excluído por padrão, inclusive de `mvn test` e do grupo geral `security`, para impedir repetição acidental do tráfego controlado.
 
+O grupo `security-regression` também é excluído por padrão. Ele só pode receber e executar testes quando houver relatório confirmado e alvo corrigido, conforme [docs/regression-testing.md](docs/regression-testing.md). Atualmente não existe caso elegível; zero testes nunca é aceito como aprovação de segurança.
+
 Executar toda a suíte atual:
 
 ```bash
@@ -203,6 +206,14 @@ A Fase 7 separa dois checks de GitHub Actions:
 
 As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os dois checks passaram na primeira execução remota. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, os resultados e a proteção de branch recomendada.
 
+## Vulnerability Reporting e regressão
+
+A Fase 8 define o caminho completo entre sinal, triagem, achado confirmado, correção e teste de regressão. O catálogo em [docs/vulnerabilities/README.md](docs/vulnerabilities/README.md) declara de forma verificável que ainda não há vulnerabilidade confirmada. O [template](docs/vulnerabilities/TEMPLATE.md) registra ambiente, contrato, impacto, evidências sanitizadas, correção e regressão sem armazenar dados sensíveis.
+
+Evidências brutas ficam fora do Git conforme [docs/evidence-handling.md](docs/evidence-handling.md). Três testes unitários garantem a estrutura e ordem do template, a consistência entre catálogo e relatórios `SEC-AAAA-NNN.md`, a exclusão de `evidence/` e o caráter opt-in de `security-regression`.
+
+Nenhum teste de regressão live foi criado: não há achado confirmado nem alvo corrigido que sustente um cenário real. Quando esses pré-requisitos existirem, a admissão e a execução seguirão [docs/regression-testing.md](docs/regression-testing.md).
+
 ## Roadmap resumido
 
-As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências, com os dois checks validados no GitHub. A Fase 3 permanece pendente pela restrição do ambiente e a Fase 8 continua planejada. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.
+As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências, com os dois checks validados no GitHub. A estrutura de gestão e regressão da Fase 8 está implementada, sem fabricar achados ou aprovações com zero testes. A Fase 3 permanece pendente pela restrição do ambiente. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

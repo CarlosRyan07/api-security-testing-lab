@@ -10,7 +10,7 @@
 | 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
 | 6 | DAST com OWASP ZAP | Baseline passiva concluída; 9/10 requests e nenhum achado confirmado |
 | 7 | CI/CD Security com GitHub Actions e Gitleaks | Concluída; checks local e remoto aprovados |
-| 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
+| 8 | Vulnerability Reporting e Security Regression Testing | Estrutura concluída; sem achado corrigido elegível para regressão |
 
 ## Estado atual
 
@@ -30,4 +30,6 @@ A Fase 6 foi concluída dentro da autorização registrada em `docs/dast-results
 
 A Fase 7 adiciona dois workflows independentes: compilação e testes unitários com Java 17, e detecção de segredos nos commits de cada evento com Gitleaks. As Actions estão fixadas por SHA, usam permissões mínimas e limites de tempo. O Dependabot acompanha semanalmente Maven e GitHub Actions. Os testes live permanecem fora do runner público porque a crAPI não é provisionada no pipeline. A primeira execução remota aprovou os dois checks; a auditoria local complementar também examinou os doze commits existentes sem encontrar leaks. A proteção obrigatória dos checks permanece como configuração manual recomendada no GitHub.
 
-A próxima etapa disponível é preparar a Fase 8 sem inventar vulnerabilidades: consolidar o processo de triagem, relatório e criação de regressões apenas para achados realmente reproduzidos.
+A Fase 8 possui processo de triagem, catálogo, template, política de evidências, estados do achado e critérios de admissão para regressões. Três testes unitários protegem a estrutura documental e o grupo `security-regression` é opt-in. Nenhum relatório concreto ou teste live foi criado porque não existe achado confirmado com alvo corrigido; uma execução com zero testes não é tratada como aprovação.
+
+O roadmap 0–8 está implementado até o limite das evidências e autorizações disponíveis. Permanecem pendentes a Fase 3, pela restrição já registrada, a proteção remota da branch recomendada na Fase 7 e a execução operacional da Fase 8 quando surgir um achado confirmado e corrigido.

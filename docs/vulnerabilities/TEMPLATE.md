@@ -1,25 +1,67 @@
-# SEC-XXX — Title
+# SEC-AAAA-NNN — Título conciso
 
-## Summary
+<!-- Copie este arquivo somente após a triagem confirmar um achado. Não preencha com dados hipotéticos. -->
 
-## OWASP Category
+## Metadados
 
-## Endpoint
+- ID:
+- Data da confirmação:
+- Responsável pela validação:
+- Status:
 
-## Preconditions
+## Resumo
 
-## Steps to Reproduce
+## Classificação
 
-## Expected Behavior
+- OWASP API Security Top 10:
+- CWE, quando aplicável:
 
-## Observed Behavior
+## Ambiente e baseline
 
-## Evidence
+- Origem e versão da crAPI:
+- Commit ou imagem do SUT:
+- Commit deste repositório:
+- `BASE_URL` sanitizada:
+- Baseline OpenAPI:
 
-## Impact
+## Endpoint e contrato
 
-## Severity
+- Método e path:
+- Referência oficial do contrato:
 
-## Recommendation
+## Pré-condições
+
+## Passos para reprodução
+
+## Comportamento esperado
+
+## Comportamento observado
+
+## Evidências sanitizadas
+
+<!-- Registre somente nomes, hashes e localização controlada. Nunca inclua JWT, senha ou dado pessoal completo. -->
+
+## Impacto
+
+## Severidade
+
+- Nível:
+- Justificativa:
+- Vetor e cálculo, se realmente realizados:
+
+## Recomendação
+
+## Verificação da correção
+
+- Versão corrigida:
+- Resultado da revalidação:
+
+## Teste de regressão
+
+- Classe e método:
+- Comando executado:
+- Resultado:
 
 ## Status
+
+<!-- Valores permitidos estão definidos em docs/vulnerability-management.md. -->

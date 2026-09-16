@@ -15,3 +15,6 @@
 - Mantenha a documentação detalhada do projeto e de segurança em `README.md`, `ROADMAP.md` e `docs/`.
 - Mantenha os checks de CI sem acesso live à crAPI enquanto o SUT não for provisionado explicitamente no runner; indisponibilidade nunca pode virar skip ou sucesso.
 - Fixe Actions de terceiros pelo SHA completo, use permissões mínimas e nunca grave tokens, licenças ou credenciais nos workflows.
+- Crie `docs/vulnerabilities/SEC-AAAA-NNN.md` somente para achado confirmado por execução live; mantenha o catálogo e a matriz OWASP sincronizados.
+- Mantenha evidências brutas em `evidence/`, fora do Git, e registre somente descrições e hashes sanitizados.
+- Adicione testes `security-regression` apenas quando houver alvo corrigido verificável; o grupo permanece opt-in e zero testes nunca significa aprovação.

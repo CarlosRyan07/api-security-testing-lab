@@ -12,7 +12,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 - Validação de propriedades, tipos e limites.
 - Consumo de recursos em volume baixo e controlado.
 - DAST orientado pela OpenAPI em fase posterior.
-- Security regression tests após correções hipotéticas ou reais.
+- Security regression tests após correções verificáveis.
 
 ## Fora de escopo
 
@@ -20,6 +20,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 - Testes contra sistemas que não sejam explicitamente autorizados.
 - Carga, negação de serviço ou tráfego destrutivo.
 - Exploração automática sem cenário documentado.
+- Relatórios de vulnerabilidade ou regressões baseados somente em hipótese, alerta ou drift de contrato.
 - ZAP, Gitleaks e pipelines durante as Fases 0 e 1.
 
 ## Abordagem
@@ -89,6 +90,7 @@ O plano de DAST está em `docs/dast-plan.md` e a execução em `docs/dast-result
 - GitHub Actions para compilação e testes unitários offline da Fase 7.
 - Gitleaks 8.30.1 para detecção de segredos no histórico Git.
 - Dependabot para propostas semanais de atualização de Maven e GitHub Actions.
+- Catálogo e testes unitários de consistência para o processo de Vulnerability Reporting.
 
 ## Execução da Fase 7
 
@@ -96,12 +98,19 @@ Os workflows de CI Java e Gitleaks executam em push para `master`, pull request 
 
 O CI Java executa `mvn test-compile` e `mvn test -Dgroups=unit` com Temurin 17. Ele não executa testes live, pois a crAPI externa não é provisionada no runner. O Gitleaks examina o intervalo de commits determinado pelo evento, com dados sensíveis redigidos e sem publicar comentários ou artefatos; a validação local complementar examina a árvore e todo o histórico. A configuração e os resultados estão em `docs/cicd-security.md`.
 
+## Execução da Fase 8
+
+O processo de gestão está em `docs/vulnerability-management.md`, a política de evidências em `docs/evidence-handling.md` e os critérios de regressão em `docs/regression-testing.md`. O catálogo declara que não existe achado confirmado, e o template não é contado como relatório.
+
+Três testes unitários verificam as seções obrigatórias e sua ordem, a correspondência entre arquivos `SEC-AAAA-NNN.md` e catálogo, a exclusão de `evidence/` do Git e a exclusão padrão do grupo `security-regression`. Nenhum teste live desse grupo existe enquanto não houver vulnerabilidade confirmada e alvo corrigido. Zero testes executados não constitui evidência de aprovação.
+
 ## Critérios
 
 - Todo endpoint, método, payload e status esperado deve ter fonte oficial confirmada.
 - A indisponibilidade do SUT deve falhar explicitamente.
 - Testes funcionais e reproduções de vulnerabilidade devem ter nomes e expectativas distintas.
 - Nenhuma evidência pode conter JWT completo, credencial real ou outro segredo.
+- Todo relatório confirmado deve estar no catálogo e ligar execução, evidência sanitizada, correção e regressão quando aplicável.
 - Falhas do código de teste devem ser corrigidas antes de ampliar o escopo.
 
 ## Riscos
