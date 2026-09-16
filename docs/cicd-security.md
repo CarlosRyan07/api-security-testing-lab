@@ -25,14 +25,14 @@ O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e recebe apena
 
 O arquivo `.github/dependabot.yml` solicita atualizações semanais para Maven e GitHub Actions, limitado a cinco pull requests abertos por ecossistema. Toda atualização deve passar pelos mesmos checks e ser revisada antes do merge.
 
-## Proteção recomendada da branch
+## Proteção da branch
 
-Após a primeira execução bem-sucedida no GitHub, configure manualmente a proteção de `master` para exigir os checks:
+A branch `master` está protegida no GitHub desde 16 de setembro de 2026. A configuração foi consultada novamente após a aplicação e exige os contextos emitidos pelo app oficial GitHub Actions:
 
-- `CI Java / Testes unitários`
-- `Gitleaks / Segredos`
+- `Testes unitários`
+- `Segredos`
 
-Essa configuração pertence ao repositório remoto e não é presumida como aplicada por estes arquivos.
+A branch deve estar atualizada antes do merge, a regra também se aplica ao administrador, o histórico deve permanecer linear e conversas precisam estar resolvidas. Force-push e exclusão da branch estão bloqueados. Não há aprovação obrigatória de terceiro porque o repositório é pessoal; alterações em `master` ainda devem passar por branch, pull request e pelos dois checks.
 
 ## Validação local
 

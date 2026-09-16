@@ -18,3 +18,4 @@
 - Crie `docs/vulnerabilities/SEC-AAAA-NNN.md` somente para achado confirmado por execução live; mantenha o catálogo e a matriz OWASP sincronizados.
 - Mantenha evidências brutas em `evidence/`, fora do Git, e registre somente descrições e hashes sanitizados.
 - Adicione testes `security-regression` apenas quando houver alvo corrigido verificável; o grupo permanece opt-in e zero testes nunca significa aprovação.
+- Envie alterações para `master` por branch e pull request; preserve os checks obrigatórios `Testes unitários` e `Segredos`, o histórico linear e a resolução de conversas.
