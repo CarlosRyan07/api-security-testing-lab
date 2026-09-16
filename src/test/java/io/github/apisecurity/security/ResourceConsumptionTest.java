@@ -11,6 +11,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,50 +35,89 @@ class ResourceConsumptionTest {
     @Test
     void shouldRemainStableWithinAuthorizedLowVolumeBudget() {
         long startedAt = System.nanoTime();
-        SignupRequest user = UserFactory.uniqueUser();
+        List<RequestMetric> metrics = new ArrayList<>(TOTAL_REQUEST_BUDGET);
 
-        Response signupResponse = authClient.signup(user);
-        assertWithinAuthorizedLimits(signupResponse, "signup (requisição 1/10)", startedAt);
-        signupResponse.then()
-                .statusCode(200)
-                .contentType(ContentType.JSON);
+        try {
+            SignupRequest user = UserFactory.uniqueUser();
 
-        Response loginResponse = authClient.login(LoginRequest.from(user));
-        assertWithinAuthorizedLimits(loginResponse, "login (requisição 2/10)", startedAt);
-        loginResponse.then()
-                .statusCode(200)
-                .contentType(ContentType.JSON);
-
-        JwtResponse jwt = loginResponse.as(JwtResponse.class);
-        assertNotNull(jwt.token(), "A resposta de login deve conter um token");
-        assertFalse(jwt.token().isBlank(), "O token de login não pode estar vazio");
-
-        for (int requestNumber = 1; requestNumber <= DASHBOARD_REQUESTS; requestNumber++) {
-            Response dashboardResponse = userClient.dashboard(jwt.token());
-            assertWithinAuthorizedLimits(
-                    dashboardResponse,
-                    "dashboard (requisição " + (requestNumber + SETUP_REQUESTS) + "/10)",
-                    startedAt
-            );
-            dashboardResponse.then()
+            Response signupResponse = authClient.signup(user);
+            assertWithinAuthorizedLimits(signupResponse, 1, "signup", startedAt, metrics);
+            signupResponse.then()
                     .statusCode(200)
                     .contentType(ContentType.JSON);
+
+            Response loginResponse = authClient.login(LoginRequest.from(user));
+            assertWithinAuthorizedLimits(loginResponse, 2, "login", startedAt, metrics);
+            loginResponse.then()
+                    .statusCode(200)
+                    .contentType(ContentType.JSON);
+
+            JwtResponse jwt = loginResponse.as(JwtResponse.class);
+            assertNotNull(jwt.token(), "A resposta de login deve conter um token");
+            assertFalse(jwt.token().isBlank(), "O token de login não pode estar vazio");
+
+            for (int dashboardRequest = 1; dashboardRequest <= DASHBOARD_REQUESTS; dashboardRequest++) {
+                int requestNumber = dashboardRequest + SETUP_REQUESTS;
+                Response dashboardResponse = userClient.dashboard(jwt.token());
+                assertWithinAuthorizedLimits(
+                        dashboardResponse,
+                        requestNumber,
+                        "dashboard",
+                        startedAt,
+                        metrics
+                );
+                dashboardResponse.then()
+                        .statusCode(200)
+                        .contentType(ContentType.JSON);
+            }
+        } finally {
+            printMetrics(metrics);
         }
     }
 
-    private void assertWithinAuthorizedLimits(Response response, String operation, long startedAt) {
+    private void assertWithinAuthorizedLimits(
+            Response response,
+            int requestNumber,
+            String operation,
+            long startedAt,
+            List<RequestMetric> metrics
+    ) {
         int statusCode = response.statusCode();
         long requestLatency = response.timeIn(TimeUnit.MILLISECONDS);
         long elapsed = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startedAt);
+        String step = operation + " (requisição " + requestNumber + "/" + TOTAL_REQUEST_BUDGET + ")";
 
-        assertTrue(statusCode < 500, () -> operation + " retornou HTTP " + statusCode);
+        metrics.add(new RequestMetric(requestNumber, operation, statusCode, requestLatency, elapsed));
+
+        assertTrue(statusCode < 500, () -> step + " retornou HTTP " + statusCode);
         assertTrue(
                 requestLatency <= MAX_REQUEST_LATENCY_MILLIS,
-                () -> operation + " excedeu a latência máxima: " + requestLatency + " ms"
+                () -> step + " excedeu a latência máxima: " + requestLatency + " ms"
         );
         assertTrue(
                 elapsed <= WINDOW_MILLIS,
                 () -> "A execução excedeu a janela autorizada: " + elapsed + " ms"
         );
+    }
+
+    private void printMetrics(List<RequestMetric> metrics) {
+        metrics.forEach(metric -> System.out.printf(
+                "METRICA resource-abuse requisicao=%d/%d operacao=%s status=%d latencia_ms=%d decorrido_ms=%d%n",
+                metric.requestNumber(),
+                TOTAL_REQUEST_BUDGET,
+                metric.operation(),
+                metric.statusCode(),
+                metric.latencyMillis(),
+                metric.elapsedMillis()
+        ));
+    }
+
+    private record RequestMetric(
+            int requestNumber,
+            String operation,
+            int statusCode,
+            long latencyMillis,
+            long elapsedMillis
+    ) {
     }
 }

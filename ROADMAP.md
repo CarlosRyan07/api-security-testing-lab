@@ -7,7 +7,7 @@
 | 2 | Authentication Security | Baseline não destrutiva concluída e validada live |
 | 3 | Authorization Security | Pendente por limitação do ambiente/ferramenta |
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
-| 5 | Resource Abuse | Em andamento; duas execuções controladas com resultados divergentes |
+| 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
 | 6 | DAST com OWASP ZAP | Planejada |
 | 7 | CI/CD Security com GitHub Actions e Gitleaks | Planejada |
 | 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
@@ -24,4 +24,4 @@ Enquanto essa restrição permanecer, o trabalho pode continuar apenas em organi
 
 A baseline segura da Fase 4 está concluída. Mass assignment, parameter tampering e autorização de propriedades permanecem sem implementação enquanto dependerem de conteúdo ou execução indisponível no ambiente.
 
-A Fase 5 foi iniciada com autorização explícita para, em cada execução, no máximo dez requisições sequenciais em dez segundos, latência máxima individual de dois segundos e interrupção em HTTP 5xx, estouro da janela ou ambiente não saudável. A primeira execução parou após 1/10 requisições: o signup levou 2.164 ms e login/dashboard não foram chamados. Após nova autorização, a segunda execução completou 10/10 chamadas dentro de todos os limites. A divergência sem alteração do teste ou do SUT mantém a fase inconclusiva e nenhuma vulnerabilidade de consumo de recursos foi confirmada. Não houve teste de rate limiting, concorrência, carga, exaustão de recursos ou negação de serviço.
+A Fase 5 foi executada com autorização explícita para, em cada execução, no máximo dez requisições sequenciais em dez segundos, latência máxima individual de dois segundos e interrupção em HTTP 5xx, estouro da janela ou ambiente não saudável. Antes do protocolo final, uma tentativa parou no signup após 1/10 requisições e 2.164 ms, e outra completou 10/10. O protocolo final de três execuções independentes foi aprovado em 3/3, com todas as respostas HTTP 200 e dentro dos limites. A baseline controlada está concluída, mas não confirma rate limiting, resistência a carga ou ausência de vulnerabilidade. Não houve concorrência, carga, exaustão de recursos ou negação de serviço.

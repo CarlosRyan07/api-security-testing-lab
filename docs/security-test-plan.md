@@ -72,7 +72,9 @@ Não há cobertura executada de mass assignment, parameter tampering ou autoriza
 
 Cada execução é autorizada separadamente com orçamento total de dez chamadas sequenciais em dez segundos: um signup, um login e até oito acessos autenticados ao dashboard. Os critérios de interrupção são qualquer HTTP 5xx, latência individual acima de dois segundos, estouro da janela ou ambiente não saudável. Carga, concorrência e negação de serviço continuam fora de escopo.
 
-Na primeira execução live, o signup levou 2.164 ms. O teste falhou e interrompeu após 1/10 chamadas, antes de emitir login ou acessar o dashboard. Depois de nova autorização, uma segunda execução independente completou 10/10 chamadas dentro da latência e da janela definidas, sem HTTP 5xx. Os resultados divergentes mantêm a Fase 5 inconclusiva e não validam vulnerabilidade, ausência de vulnerabilidade ou estabilidade consistente.
+Antes do protocolo final, o signup de uma tentativa levou 2.164 ms e interrompeu após 1/10 chamadas; uma tentativa posterior completou 10/10. O protocolo final autorizado realizou três execuções independentes, todas aprovadas com 10/10 respostas HTTP 200 e dentro dos limites. As maiores latências foram 1.774 ms, 1.026 ms e 934 ms; os tempos acumulados finais foram 5.078 ms, 4.728 ms e 4.352 ms.
+
+A baseline controlada está concluída, preservando a variação inicial como risco ambiental. O resultado não valida rate limiting, resistência a carga, ausência de vulnerabilidade ou comportamento fora do orçamento autorizado. O cenário é excluído da suíte padrão e exige habilitação explícita.
 
 ## Ferramentas
 

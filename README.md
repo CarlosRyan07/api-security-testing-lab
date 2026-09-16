@@ -117,8 +117,10 @@ mvn test -Dgroups=input-validation
 Executar a baseline controlada de consumo de recursos da Fase 5:
 
 ```bash
-mvn test -Dgroups=resource-abuse
+mvn test -Dgroups=resource-abuse -Dexcluded.test.groups=__none__
 ```
+
+O grupo `resource-abuse` é excluído por padrão, inclusive de `mvn test` e do grupo geral `security`, para impedir repetição acidental do tráfego controlado.
 
 Executar toda a suíte atual:
 
@@ -161,7 +163,15 @@ A baseline segura da Fase 4 está concluída. A Fase 5 não executará rate limi
 
 A baseline da Fase 5 é executada sequencialmente, e cada execução autorizada possui orçamento total de dez chamadas: um signup, um login e até oito acessos ao dashboard em uma janela de dez segundos. O teste interrompe imediatamente diante de HTTP 5xx, latência individual acima de dois segundos ou estouro da janela. Não há concorrência, carga ou conclusão automática sobre rate limiting.
 
-Na primeira execução, o signup consumiu somente a primeira chamada e levou 2.164 ms, ultrapassando o limite de 2.000 ms. O teste falhou e interrompeu antes de login ou dashboard. Após confirmação para continuar, uma segunda execução independente completou as 10/10 chamadas dentro de todos os limites. Como houve resultados divergentes sem alteração do teste ou do SUT, a fase permanece inconclusiva e não confirma vulnerabilidade nem estabilidade consistente.
+Antes do protocolo final, a primeira tentativa foi interrompida no signup após 1/10 chamadas e 2.164 ms; uma segunda tentativa completou 10/10. Depois disso, um protocolo autorizado de três execuções independentes foi concluído com 3/3 aprovações:
+
+| Execução | Chamadas | Maior latência | Tempo acumulado final | Resultado |
+|---|---:|---:|---:|---|
+| 1/3 | 10/10 | 1.774 ms | 5.078 ms | Pass |
+| 2/3 | 10/10 | 1.026 ms | 4.728 ms | Pass |
+| 3/3 | 10/10 | 934 ms | 4.352 ms | Pass |
+
+A baseline controlada da Fase 5 está aprovada dentro desses limites. O resultado não demonstra rate limiting, resistência a carga ou ausência de vulnerabilidade, e a variação inicial permanece registrada.
 
 ## Roadmap resumido
 
