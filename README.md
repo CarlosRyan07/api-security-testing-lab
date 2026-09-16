@@ -2,6 +2,8 @@
 
 Projeto de portfólio de QA Engineering para automação black-box de APIs e evolução progressiva até Security Regression Testing e DevSecOps. O sistema sob teste é a [OWASP crAPI](https://github.com/OWASP/crAPI), uma aplicação externa e deliberadamente vulnerável.
 
+Versão estável atual: `1.0.0`. Consulte o [CHANGELOG.md](CHANGELOG.md) para o escopo validado e as limitações conhecidas.
+
 Este repositório não contém nem reimplementa a crAPI. A etapa atual cobre o bootstrap, o fluxo funcional mínimo e as baselines negativas permitidas de autenticação e validação de entrada.
 
 ## Stack

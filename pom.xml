@@ -6,7 +6,7 @@
 
     <groupId>io.github.apisecurity</groupId>
     <artifactId>api-security-testing-lab</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>API Security Testing Lab</name>
     <description>Black-box API testing project for OWASP crAPI</description>
 

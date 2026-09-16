@@ -1,5 +1,7 @@
 # Roadmap
 
+Release estável atual: `v1.0.0`. O conteúdo da release está consolidado em `CHANGELOG.md`.
+
 | Fase | Objetivo | Status |
 |---|---|---|
 | 0 | Bootstrap Maven, Java 17, configuração e documentação inicial | Implementada e compilada |
