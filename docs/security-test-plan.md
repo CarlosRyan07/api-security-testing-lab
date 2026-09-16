@@ -47,6 +47,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 - Object Property and Input Security: BOPLA, mass assignment e parameter tampering.
 - Resource Consumption e rate limiting.
 - DAST orientado pela OpenAPI.
+- Controles de CI/CD, dependências e detecção de segredos.
 
 ## Execução atual
 
@@ -85,7 +86,15 @@ O plano de DAST está em `docs/dast-plan.md` e a execução em `docs/dast-result
 - REST Assured e JUnit 5 para automação HTTP.
 - Docker Compose para o SUT externo.
 - OWASP ZAP usado na baseline passiva controlada da Fase 6.
-- GitHub Actions e Gitleaks apenas nas fases futuras previstas.
+- GitHub Actions para compilação e testes unitários offline da Fase 7.
+- Gitleaks 8.30.1 para detecção de segredos no histórico Git.
+- Dependabot para propostas semanais de atualização de Maven e GitHub Actions.
+
+## Execução da Fase 7
+
+Os workflows de CI Java e Gitleaks executam em push para `master`, pull request e acionamento manual. As Actions de terceiros estão fixadas pelo SHA completo, o `GITHUB_TOKEN` possui somente `contents: read` e cada job tem limite de dez minutos.
+
+O CI Java executa `mvn test-compile` e `mvn test -Dgroups=unit` com Temurin 17. Ele não executa testes live, pois a crAPI externa não é provisionada no runner. O Gitleaks examina todo o histórico com dados sensíveis redigidos e sem publicar comentários ou artefatos. A configuração detalhada e as pendências remotas estão em `docs/cicd-security.md`.
 
 ## Critérios
 

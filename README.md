@@ -12,6 +12,8 @@ Este repositório não contém nem reimplementa a crAPI. A etapa atual cobre o b
 - REST Assured
 - Jackson
 - Docker e Docker Compose para executar a crAPI separadamente
+- GitHub Actions
+- Gitleaks
 
 ## Arquitetura
 
@@ -28,7 +30,7 @@ src/test/java/io/github/apisecurity/
 └── tooling/      # Preparação offline e opt-in de artefatos
 ```
 
-Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md) e a preparação da Fase 6 está em [docs/dast-plan.md](docs/dast-plan.md).
+Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md), a execução da Fase 6 está em [docs/dast-results.md](docs/dast-results.md) e os controles da Fase 7 estão em [docs/cicd-security.md](docs/cicd-security.md).
 
 ## Pré-requisitos
 
@@ -192,6 +194,15 @@ O wrapper funciona em modo de planejamento por padrão. A imagem oficial foi fix
 
 O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A execução autorizada consumiu 9/10 requests ao longo de três tentativas: as duas primeiras revelaram incompatibilidades de captura de processos no Windows PowerShell 5, corrigidas antes da tentativa final. A execução aceita encaminhou 3/4 requests, encerrou com código ZAP `0`, gerou quatro grupos informativos de risco `0` e não confirmou vulnerabilidades. Qualquer nova execução exige autorização e orçamento próprios.
 
+## CI/CD Security
+
+A Fase 7 separa dois checks de GitHub Actions:
+
+- `CI Java / Testes unitários`: configura Java 17, executa `test-compile` e os testes com tag `unit`, sem acessar a crAPI.
+- `Gitleaks / Segredos`: examina o histórico completo com Gitleaks 8.30.1 e não publica artefatos ou comentários.
+
+As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, a validação local e a proteção de branch recomendada.
+
 ## Roadmap resumido
 
-As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 3 permanece pendente pela restrição do ambiente e as Fases 7–8 continuam planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.
+As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências; a validação remota é registrada após a primeira execução no GitHub. A Fase 3 permanece pendente pela restrição do ambiente e a Fase 8 continua planejada. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

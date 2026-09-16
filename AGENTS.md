@@ -13,3 +13,5 @@
 - Gere a OpenAPI reduzida somente pelo teste opt-in documentado, mantendo o grupo `tooling` excluído da suíte padrão.
 - Use `scripts/Invoke-ControlledZapScan.ps1` apenas em modo de planejamento até que cada novo orçamento e execução sejam autorizados explicitamente; o modo de execução exige a imagem fixada e a confirmação literal documentada.
 - Mantenha a documentação detalhada do projeto e de segurança em `README.md`, `ROADMAP.md` e `docs/`.
+- Mantenha os checks de CI sem acesso live à crAPI enquanto o SUT não for provisionado explicitamente no runner; indisponibilidade nunca pode virar skip ou sucesso.
+- Fixe Actions de terceiros pelo SHA completo, use permissões mínimas e nunca grave tokens, licenças ou credenciais nos workflows.
