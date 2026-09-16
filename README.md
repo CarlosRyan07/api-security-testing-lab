@@ -174,9 +174,9 @@ Antes do protocolo final, a primeira tentativa foi interrompida no signup após 
 
 A baseline controlada da Fase 5 está aprovada dentro desses limites. O resultado não demonstra rate limiting, resistência a carga ou ausência de vulnerabilidade, e a variação inicial permanece registrada.
 
-## Preparação de DAST
+## DAST passivo controlado
 
-A Fase 6 permanece em preparação estrutural. A imagem oficial está disponível localmente e fixada por digest, mas nenhum scan foi executado. O futuro scan deverá usar safe mode e uma OpenAPI temporária contendo somente signup, login e dashboard. Mesmo em safe mode, a importação pode gerar tráfego; por isso, a execução depende de orçamento e autorização próprios.
+A baseline da Fase 6 foi executada em safe mode com imagem oficial fixada por digest e OpenAPI temporária contendo somente signup, login e dashboard. O resultado completo, as tentativas de orquestração e a revisão dos alertas estão em `docs/dast-results.md`.
 
 A OpenAPI reduzida pode ser preparada offline pelo grupo Maven opt-in `tooling`, conforme `docs/dast-plan.md`. O gerador valida o SHA-256 da especificação oficial e grava somente em `target/zap/`; ele não inicia containers nem acessa a crAPI.
 
@@ -190,8 +190,8 @@ O wrapper funciona em modo de planejamento por padrão. A imagem oficial foi fix
   -OrcamentoRequests 10
 ```
 
-O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A imagem está disponível localmente e fixada por digest. A autorização e o orçamento live ainda não foram definidos; portanto, nenhum exemplo deste README representa uma execução aprovada.
+O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A execução autorizada consumiu 9/10 requests ao longo de três tentativas: as duas primeiras revelaram incompatibilidades de captura de processos no Windows PowerShell 5, corrigidas antes da tentativa final. A execução aceita encaminhou 3/4 requests, encerrou com código ZAP `0`, gerou quatro grupos informativos de risco `0` e não confirmou vulnerabilidades. Qualquer nova execução exige autorização e orçamento próprios.
 
 ## Roadmap resumido
 
-As baselines das Fases 1, 2, 4 e 5 estão implementadas e validadas dentro dos limites registrados. A Fase 3 permanece pendente pela restrição do ambiente, a Fase 6 possui somente preparação estrutural e as Fases 7–8 continuam planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.
+As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 3 permanece pendente pela restrição do ambiente e as Fases 7–8 continuam planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

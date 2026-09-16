@@ -8,7 +8,7 @@
 | 3 | Authorization Security | Pendente por limitação do ambiente/ferramenta |
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
 | 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
-| 6 | DAST com OWASP ZAP | Imagem, gateway e orquestração preparados offline; execução não autorizada |
+| 6 | DAST com OWASP ZAP | Baseline passiva concluída; 9/10 requests e nenhum achado confirmado |
 | 7 | CI/CD Security com GitHub Actions e Gitleaks | Planejada |
 | 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
 
@@ -26,4 +26,4 @@ A baseline segura da Fase 4 está concluída. Mass assignment, parameter tamperi
 
 A Fase 5 foi executada com autorização explícita para, em cada execução, no máximo dez requisições sequenciais em dez segundos, latência máxima individual de dois segundos e interrupção em HTTP 5xx, estouro da janela ou ambiente não saudável. Antes do protocolo final, uma tentativa parou no signup após 1/10 requisições e 2.164 ms, e outra completou 10/10. O protocolo final de três execuções independentes foi aprovado em 3/3, com todas as respostas HTTP 200 e dentro dos limites. A baseline controlada está concluída, mas não confirma rate limiting, resistência a carga ou ausência de vulnerabilidade. Não houve concorrência, carga, exaustão de recursos ou negação de serviço.
 
-A preparação estrutural da Fase 6 está documentada em `docs/dast-plan.md`. O gerador Java opt-in da OpenAPI temporária reduzida aos três endpoints permitidos está implementado e valida o hash da fonte oficial. O gateway externo e o wrapper de orquestração também estão implementados e validados offline: eles aplicam allowlist, orçamento, limite de dois minutos, parada em HTTP 5xx ou indisponibilidade e verificação dos containers da crAPI. A imagem oficial foi baixada e fixada pelo digest registrado em `docs/zap-image-baseline.md`; sua CLI foi validada com rede desativada. Nenhum scan foi executado. A execução futura ainda depende de orçamento live definido e autorização específica.
+A Fase 6 foi concluída dentro da autorização registrada em `docs/dast-results.md`. Três tentativas consumiram 9/10 requests no total; as duas primeiras expuseram incompatibilidades de orquestração do Windows PowerShell 5 e não foram aceitas como resultado final. A terceira encerrou com gateway `COMPLETED`, 3/4 requests e código oficial ZAP `0`. Quatro grupos informativos de risco `0` foram revisados e não confirmam vulnerabilidade. A suíte pós-scan passou com 51/51 testes. Qualquer nova execução DAST exige orçamento e autorização próprios.

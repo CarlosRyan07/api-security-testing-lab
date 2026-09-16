@@ -2,7 +2,7 @@
 
 ## Estado
 
-Preparação estrutural offline concluída. A imagem oficial foi fixada e validada conforme `docs/zap-image-baseline.md`. Nenhum scan foi executado.
+Baseline passiva concluída conforme `docs/dast-results.md`. A imagem oficial permanece fixada conforme `docs/zap-image-baseline.md`. Novas execuções exigem autorização e orçamento próprios.
 
 ## Fontes oficiais
 
@@ -57,7 +57,8 @@ O wrapper `scripts/Invoke-ControlledZapScan.ps1`:
 - verifica antes e durante a execução os containers informados em `-ContainersSaude`;
 - executa somente `zap-api-scan.py -S`, sem regras alpha ou autenticação automatizada;
 - interrompe exclusivamente o container ZAP nomeado pela própria execução;
-- remove somente os sete artefatos temporários conhecidos antes de executar, evitando confusão com resultados antigos;
+- remove somente os oito artefatos temporários conhecidos antes de executar, evitando confusão com resultados antigos;
+- registra o código oficial em `target/zap/zap-exit-code.txt` antes do cleanup;
 - preserva os códigos de saída `0`, `1`, `2` e `3` do API Scan;
 - mantém status, logs e relatórios apenas em `target/zap/`.
 
@@ -104,3 +105,5 @@ Warnings não serão convertidos artificialmente em sucesso. Alertas serão clas
 - alertas revisados e classificados como confirmado, falso positivo ou pendente;
 - comandos, digest, limites e resultado documentados;
 - suíte Maven padrão ainda aprovada após a execução.
+
+Todos os critérios foram atendidos pela execução registrada em `docs/dast-results.md`. A conclusão se limita à baseline passiva dos três endpoints permitidos e não demonstra ausência geral de vulnerabilidades.

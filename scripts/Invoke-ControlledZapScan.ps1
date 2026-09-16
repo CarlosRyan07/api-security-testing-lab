@@ -105,9 +105,16 @@ function Stop-ZapContainer {
         return
     }
 
-    & docker inspect $script:nomeContainerZap *> $null
-    if ($LASTEXITCODE -eq 0) {
-        & docker stop --time 1 $script:nomeContainerZap *> $null
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $null = & docker inspect $script:nomeContainerZap 2>&1
+        $containerExists = $LASTEXITCODE -eq 0
+        if ($containerExists) {
+            $null = & docker stop --time 1 $script:nomeContainerZap 2>&1
+        }
+    } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
     }
 }
 
@@ -179,8 +186,15 @@ try {
     if (-not (Test-Path -LiteralPath $javaExe -PathType Leaf)) {
         throw 'JAVA_HOME deve apontar para um JDK 17 válido.'
     }
-    $javaVersion = & $javaExe -version 2>&1
-    if ($LASTEXITCODE -ne 0 -or ($javaVersion -join "`n") -notmatch 'version "17\.') {
+    $previousErrorActionPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $javaVersion = & $javaExe -version 2>&1
+        $javaVersionExitCode = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
+    if ($javaVersionExitCode -ne 0 -or ($javaVersion -join "`n") -notmatch 'version "17\.') {
         throw 'JAVA_HOME deve apontar especificamente para um JDK 17.'
     }
 
@@ -191,6 +205,7 @@ try {
         (Join-Path $diretorioZap 'gate-stderr.log'),
         (Join-Path $diretorioZap 'zap-stdout.log'),
         (Join-Path $diretorioZap 'zap-stderr.log'),
+        (Join-Path $diretorioZap 'zap-exit-code.txt'),
         (Join-Path $diretorioZap 'zap-report.json'),
         (Join-Path $diretorioZap 'zap-report.md')
     )
@@ -286,13 +301,19 @@ try {
         $processoGateway.Refresh()
     }
 
-    $codigoZap = $processoZap.ExitCode
+    $processoZap.WaitForExit()
+    $processoZap.Refresh()
+    $codigoZap = [int] $processoZap.ExitCode
+    Set-Content -LiteralPath (Join-Path $diretorioZap 'zap-exit-code.txt') -Value $codigoZap -Encoding Ascii
     Invoke-WebRequest -UseBasicParsing -Method Post -Uri "$controleUri/complete" -TimeoutSec 2 | Out-Null
     if (-not $processoGateway.WaitForExit(5000)) {
         throw 'Gateway não encerrou após a conclusão do API Scan.'
     }
-    if ($processoGateway.ExitCode -ne 0) {
-        throw "Gateway encerrou com código $($processoGateway.ExitCode). Consulte $statusGateway."
+    $processoGateway.WaitForExit()
+    $processoGateway.Refresh()
+    $codigoGateway = [int] $processoGateway.ExitCode
+    if ($codigoGateway -ne 0) {
+        throw "Gateway encerrou com código $codigoGateway. Consulte $statusGateway."
     }
 
     Write-Host "API Scan encerrado com código oficial do ZAP: $codigoZap"

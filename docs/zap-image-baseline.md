@@ -33,4 +33,4 @@ Uma tentativa adicional com `zap.sh -version` não foi aceita como evidência: m
 
 ## Estado
 
-A imagem está disponível localmente e fixada por digest. Nenhum API Scan foi executado. O orçamento live e a autorização específica para tráfego DAST continuam pendentes.
+A imagem está disponível localmente e fixada por digest. A baseline passiva autorizada posteriormente está registrada em `docs/dast-results.md`. Qualquer nova execução exige nova autorização e orçamento.
