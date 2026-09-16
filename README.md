@@ -199,10 +199,10 @@ O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASS
 A Fase 7 separa dois checks de GitHub Actions:
 
 - `CI Java / Testes unitários`: configura Java 17, executa `test-compile` e os testes com tag `unit`, sem acessar a crAPI.
-- `Gitleaks / Segredos`: examina o histórico completo com Gitleaks 8.30.1 e não publica artefatos ou comentários.
+- `Gitleaks / Segredos`: examina os commits do evento com Gitleaks 8.30.1 e não publica artefatos ou comentários.
 
-As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, a validação local e a proteção de branch recomendada.
+As Actions estão fixadas por SHA completo, o `GITHUB_TOKEN` possui somente permissão de leitura e o Dependabot acompanha semanalmente Maven e GitHub Actions. Os dois checks passaram na primeira execução remota. Os cenários live não rodam no runner público porque a crAPI não é provisionada no pipeline. Consulte [docs/cicd-security.md](docs/cicd-security.md) para os controles, os resultados e a proteção de branch recomendada.
 
 ## Roadmap resumido
 
-As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências; a validação remota é registrada após a primeira execução no GitHub. A Fase 3 permanece pendente pela restrição do ambiente e a Fase 8 continua planejada. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.
+As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências, com os dois checks validados no GitHub. A Fase 3 permanece pendente pela restrição do ambiente e a Fase 8 continua planejada. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

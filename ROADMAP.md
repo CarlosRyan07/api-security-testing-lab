@@ -9,7 +9,7 @@
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
 | 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
 | 6 | DAST com OWASP ZAP | Baseline passiva concluída; 9/10 requests e nenhum achado confirmado |
-| 7 | CI/CD Security com GitHub Actions e Gitleaks | Implementada; validação local concluída e execução remota pendente |
+| 7 | CI/CD Security com GitHub Actions e Gitleaks | Concluída; checks local e remoto aprovados |
 | 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
 
 ## Estado atual
@@ -28,6 +28,6 @@ A Fase 5 foi executada com autorização explícita para, em cada execução, no
 
 A Fase 6 foi concluída dentro da autorização registrada em `docs/dast-results.md`. Três tentativas consumiram 9/10 requests no total; as duas primeiras expuseram incompatibilidades de orquestração do Windows PowerShell 5 e não foram aceitas como resultado final. A terceira encerrou com gateway `COMPLETED`, 3/4 requests e código oficial ZAP `0`. Quatro grupos informativos de risco `0` foram revisados e não confirmam vulnerabilidade. A suíte pós-scan passou com 51/51 testes. Qualquer nova execução DAST exige orçamento e autorização próprios.
 
-A Fase 7 adiciona dois workflows independentes: compilação e testes unitários com Java 17, e detecção de segredos no histórico completo com Gitleaks. As Actions estão fixadas por SHA, usam permissões mínimas e limites de tempo. O Dependabot acompanha semanalmente Maven e GitHub Actions. Os testes live permanecem fora do runner público porque a crAPI não é provisionada no pipeline; a primeira execução remota e a proteção obrigatória dos checks ainda precisam ser confirmadas no GitHub.
+A Fase 7 adiciona dois workflows independentes: compilação e testes unitários com Java 17, e detecção de segredos nos commits de cada evento com Gitleaks. As Actions estão fixadas por SHA, usam permissões mínimas e limites de tempo. O Dependabot acompanha semanalmente Maven e GitHub Actions. Os testes live permanecem fora do runner público porque a crAPI não é provisionada no pipeline. A primeira execução remota aprovou os dois checks; a auditoria local complementar também examinou os doze commits existentes sem encontrar leaks. A proteção obrigatória dos checks permanece como configuração manual recomendada no GitHub.
 
-A próxima etapa disponível é validar os dois workflows no GitHub e, depois, preparar a Fase 8 sem inventar vulnerabilidades: consolidar o processo de triagem, relatório e criação de regressões apenas para achados realmente reproduzidos.
+A próxima etapa disponível é preparar a Fase 8 sem inventar vulnerabilidades: consolidar o processo de triagem, relatório e criação de regressões apenas para achados realmente reproduzidos.

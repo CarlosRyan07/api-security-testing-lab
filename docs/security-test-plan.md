@@ -94,7 +94,7 @@ O plano de DAST está em `docs/dast-plan.md` e a execução em `docs/dast-result
 
 Os workflows de CI Java e Gitleaks executam em push para `master`, pull request e acionamento manual. As Actions de terceiros estão fixadas pelo SHA completo, o `GITHUB_TOKEN` possui somente `contents: read` e cada job tem limite de dez minutos.
 
-O CI Java executa `mvn test-compile` e `mvn test -Dgroups=unit` com Temurin 17. Ele não executa testes live, pois a crAPI externa não é provisionada no runner. O Gitleaks examina todo o histórico com dados sensíveis redigidos e sem publicar comentários ou artefatos. A configuração detalhada e as pendências remotas estão em `docs/cicd-security.md`.
+O CI Java executa `mvn test-compile` e `mvn test -Dgroups=unit` com Temurin 17. Ele não executa testes live, pois a crAPI externa não é provisionada no runner. O Gitleaks examina o intervalo de commits determinado pelo evento, com dados sensíveis redigidos e sem publicar comentários ou artefatos; a validação local complementar examina a árvore e todo o histórico. A configuração e os resultados estão em `docs/cicd-security.md`.
 
 ## Critérios
 

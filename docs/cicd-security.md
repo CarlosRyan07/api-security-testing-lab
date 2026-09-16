@@ -17,7 +17,7 @@ Os testes funcionais e de segurança que acessam a crAPI não são executados no
 
 ## Detecção de segredos
 
-O workflow `.github/workflows/gitleaks.yml` usa `gitleaks/gitleaks-action` v3, fixada por SHA, e Gitleaks 8.30.1. O checkout inclui todo o histórico para que a varredura não fique limitada ao snapshot atual. Comentários e upload de artefatos foram desabilitados para reduzir permissões e evitar publicação desnecessária de evidências.
+O workflow `.github/workflows/gitleaks.yml` usa `gitleaks/gitleaks-action` v3, fixada por SHA, e Gitleaks 8.30.1. O checkout disponibiliza o histórico necessário para a Action calcular o intervalo do evento. Em `push`, pull request e acionamento manual, a própria Action define os commits pertinentes ao evento; portanto, esse check incremental não é descrito como auditoria histórica completa. Comentários e upload de artefatos foram desabilitados para reduzir permissões e evitar publicação desnecessária de evidências.
 
 O `GITHUB_TOKEN` é fornecido automaticamente pelo GitHub Actions e recebe apenas `contents: read`. Não há token, licença ou credencial persistida no repositório. Em repositórios pessoais, a Action não exige `GITLEAKS_LICENSE`; se o projeto for transferido para uma organização, essa exigência deve ser reavaliada conforme a documentação oficial vigente.
 
@@ -46,6 +46,17 @@ mvn test -Dgroups=unit
 ```
 
 Os workflows devem ser verificados com `actionlint`. A árvore de trabalho e o histórico Git devem ser examinados com Gitleaks usando `--redact`; nenhum achado deve ser ignorado ou convertido em sucesso.
+
+## Resultado da primeira execução
+
+Em 16 de setembro de 2026, o commit `09f2625` produziu os seguintes resultados:
+
+- [CI Java](https://github.com/CarlosRyan07/api-security-testing-lab/actions/runs/35149425990): aprovado no Ubuntu 24.04 com Java 17; compilação aprovada e 21/21 testes unitários aprovados, sem falhas, erros ou skips.
+- [Gitleaks](https://github.com/CarlosRyan07/api-security-testing-lab/actions/runs/35149426045): aprovado com Gitleaks 8.30.1; o commit do evento foi examinado e nenhum leak foi encontrado.
+- Validação local: `actionlint` 1.7.12 sem diagnósticos; Gitleaks 8.30.1 sem leaks na árvore de trabalho e nos doze commits iniciais, com nova varredura limpa após o primeiro commit da fase.
+- Suíte padrão local: 51/51 testes aprovados contra a crAPI disponível, sem falhas, erros ou skips.
+
+O Dependabot reconheceu as configurações de Maven e GitHub Actions; as duas verificações de atualização foram aprovadas e duas propostas Maven foram abertas. Propostas automatizadas não são mescladas sem revisão e execução dos checks.
 
 ## Referências oficiais
 
