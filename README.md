@@ -176,21 +176,21 @@ A baseline controlada da Fase 5 está aprovada dentro desses limites. O resultad
 
 ## Preparação de DAST
 
-A Fase 6 possui apenas planejamento estrutural. O ZAP não foi instalado nem executado. O futuro scan deverá usar safe mode, imagem oficial fixada por digest e uma OpenAPI temporária contendo somente signup, login e dashboard. Mesmo em safe mode, a importação pode gerar tráfego; por isso, a execução depende de orçamento e autorização próprios.
+A Fase 6 permanece em preparação estrutural. A imagem oficial está disponível localmente e fixada por digest, mas nenhum scan foi executado. O futuro scan deverá usar safe mode e uma OpenAPI temporária contendo somente signup, login e dashboard. Mesmo em safe mode, a importação pode gerar tráfego; por isso, a execução depende de orçamento e autorização próprios.
 
 A OpenAPI reduzida pode ser preparada offline pelo grupo Maven opt-in `tooling`, conforme `docs/dast-plan.md`. O gerador valida o SHA-256 da especificação oficial e grava somente em `target/zap/`; ele não inicia containers nem acessa a crAPI.
 
 O gateway `DastTrafficGate` e o wrapper `scripts/Invoke-ControlledZapScan.ps1` aplicam os controles externos planejados. O gateway processa uma chamada por vez, encaminha somente os três método/paths permitidos, rejeita query strings e cabeçalhos `Authorization`, limita o corpo a 64 KiB e interrompe diante de operação fora do escopo, tentativa acima do orçamento, HTTP 5xx, indisponibilidade do upstream ou duração superior a dois minutos. Seu estado contém apenas motivo e contagem, sem payloads ou credenciais.
 
-O wrapper funciona em modo de planejamento por padrão. Este exemplo apenas valida e exibe o plano, sem iniciar Docker ou acessar a crAPI; substitua o valor ilustrativo por um digest oficial real antes de uma futura execução autorizada:
+O wrapper funciona em modo de planejamento por padrão. A imagem oficial foi fixada e validada offline conforme `docs/zap-image-baseline.md`. Este exemplo apenas valida e exibe o plano, sem iniciar Docker ou acessar a crAPI:
 
 ```powershell
 .\scripts\Invoke-ControlledZapScan.ps1 `
-  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:<digest-sha256>" `
+  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef" `
   -OrcamentoRequests 10
 ```
 
-O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A imagem precisa estar disponível localmente e fixada por digest. A autorização, o digest e o orçamento live ainda não foram definidos; portanto, nenhum exemplo deste README representa uma execução aprovada.
+O modo de execução é protegido por `-Executar -Confirmacao AUTORIZO_DAST_PASSIVO`, aceita no máximo cinquenta requests e usa `--pull=never`. A imagem está disponível localmente e fixada por digest. A autorização e o orçamento live ainda não foram definidos; portanto, nenhum exemplo deste README representa uma execução aprovada.
 
 ## Roadmap resumido
 

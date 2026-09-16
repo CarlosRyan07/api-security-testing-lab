@@ -2,7 +2,7 @@
 
 ## Estado
 
-Preparação estrutural offline concluída. Nenhuma imagem ZAP foi baixada e nenhum scan foi executado.
+Preparação estrutural offline concluída. A imagem oficial foi fixada e validada conforme `docs/zap-image-baseline.md`. Nenhum scan foi executado.
 
 ## Fontes oficiais
 
@@ -33,7 +33,7 @@ mvn test -Dgroups=tooling "-Dexcluded.test.groups=__none__" `
 
 ## Modo planejado
 
-- Imagem oficial `ghcr.io/zaproxy/zaproxy:stable`, fixada pelo digest obtido no momento autorizado.
+- Imagem oficial resolvida a partir de `stable` e fixada como `ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef`.
 - `zap-api-scan.py` com formato `openapi` e opção `-S`.
 - Sem active scan, regras alpha, spider adicional, fuzzing ou autenticação automatizada.
 - Host local acessado pelo container via `host.docker.internal` e opção oficial de override de hostname.
@@ -61,15 +61,15 @@ O wrapper `scripts/Invoke-ControlledZapScan.ps1`:
 - preserva os códigos de saída `0`, `1`, `2` e `3` do API Scan;
 - mantém status, logs e relatórios apenas em `target/zap/`.
 
-Exemplo seguro de planejamento, com digest ilustrativo a ser substituído:
+Exemplo seguro de planejamento com o digest fixado:
 
 ```powershell
 .\scripts\Invoke-ControlledZapScan.ps1 `
-  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:<digest-sha256>" `
+  -ImagemZap "ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef" `
   -OrcamentoRequests 10
 ```
 
-O modo live não deve ser usado enquanto digest, orçamento e autorização específica não forem registrados.
+O modo live não deve ser usado enquanto orçamento e autorização específica não forem registrados.
 
 ## Controles obrigatórios antes da execução
 
@@ -83,7 +83,7 @@ O modo live não deve ser usado enquanto digest, orçamento e autorização espe
 
 Sem esses controles, o scan não deve ser iniciado.
 
-Os itens 3, 4 e 5 foram implementados e validados offline. Os itens 1, 2 e 6 devem ser novamente confirmados para cada execução live; o item 7 só pode ocorrer depois de uma execução autorizada.
+Os itens 2, 3, 4 e 5 foram implementados e validados offline. Os itens 1 e 6 devem ser novamente confirmados para cada execução live; o item 7 só pode ocorrer depois de uma execução autorizada. Uma futura atualização da imagem exige nova resolução e revisão explícitas, sem substituir silenciosamente o digest desta baseline.
 
 ## Resultado e códigos de saída
 
