@@ -27,7 +27,7 @@ src/test/java/io/github/apisecurity/
 └── security/     # Cenários negativos permitidos
 ```
 
-Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md) e a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md).
+Detalhes das próximas fases estão em [ROADMAP.md](ROADMAP.md), a estratégia de segurança está em [docs/security-test-plan.md](docs/security-test-plan.md), a versão exata da OpenAPI consultada está em [docs/contract-baseline.md](docs/contract-baseline.md) e a preparação da Fase 6 está em [docs/dast-plan.md](docs/dast-plan.md).
 
 ## Pré-requisitos
 
@@ -173,6 +173,10 @@ Antes do protocolo final, a primeira tentativa foi interrompida no signup após 
 
 A baseline controlada da Fase 5 está aprovada dentro desses limites. O resultado não demonstra rate limiting, resistência a carga ou ausência de vulnerabilidade, e a variação inicial permanece registrada.
 
+## Preparação de DAST
+
+A Fase 6 possui apenas planejamento estrutural. O ZAP não foi instalado nem executado. O futuro scan deverá usar safe mode, imagem oficial fixada por digest e uma OpenAPI temporária contendo somente signup, login e dashboard. Mesmo em safe mode, a importação pode gerar tráfego; por isso, a execução depende de orçamento e autorização próprios.
+
 ## Roadmap resumido
 
-As baselines das Fases 1, 2 e 4 estão implementadas e validadas. A Fase 3 permanece pendente pela restrição registrada, e as Fases 5–8 continuam apenas planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.
+As baselines das Fases 1, 2, 4 e 5 estão implementadas e validadas dentro dos limites registrados. A Fase 3 permanece pendente pela restrição do ambiente, a Fase 6 possui somente preparação estrutural e as Fases 7–8 continuam planejadas. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

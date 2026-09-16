@@ -76,11 +76,16 @@ Antes do protocolo final, o signup de uma tentativa levou 2.164 ms e interrompeu
 
 A baseline controlada está concluída, preservando a variação inicial como risco ambiental. O resultado não valida rate limiting, resistência a carga, ausência de vulnerabilidade ou comportamento fora do orçamento autorizado. O cenário é excluído da suíte padrão e exige habilitação explícita.
 
+## Preparação da Fase 6
+
+O plano de DAST está em `docs/dast-plan.md`. A execução prevista usa o API Scan oficial do ZAP em safe mode, mas reconhece que a importação da OpenAPI ainda pode gerar tráfego. Por isso, a especificação completa da crAPI não será usada: deverá ser gerado um artefato temporário com apenas signup, login e dashboard. Nenhuma imagem foi baixada e nenhum scan foi executado.
+
 ## Ferramentas
 
 - REST Assured e JUnit 5 para automação HTTP.
 - Docker Compose para o SUT externo.
-- OWASP ZAP, GitHub Actions e Gitleaks apenas nas fases futuras previstas.
+- OWASP ZAP preparado documentalmente para a Fase 6, ainda sem execução.
+- GitHub Actions e Gitleaks apenas nas fases futuras previstas.
 
 ## Critérios
 

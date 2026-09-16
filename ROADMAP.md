@@ -8,7 +8,7 @@
 | 3 | Authorization Security | Pendente por limitação do ambiente/ferramenta |
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
 | 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
-| 6 | DAST com OWASP ZAP | Planejada |
+| 6 | DAST com OWASP ZAP | Preparação estrutural concluída; execução não autorizada |
 | 7 | CI/CD Security com GitHub Actions e Gitleaks | Planejada |
 | 8 | Vulnerability Reporting e Security Regression Testing | Planejada |
 
@@ -25,3 +25,5 @@ Enquanto essa restrição permanecer, o trabalho pode continuar apenas em organi
 A baseline segura da Fase 4 está concluída. Mass assignment, parameter tampering e autorização de propriedades permanecem sem implementação enquanto dependerem de conteúdo ou execução indisponível no ambiente.
 
 A Fase 5 foi executada com autorização explícita para, em cada execução, no máximo dez requisições sequenciais em dez segundos, latência máxima individual de dois segundos e interrupção em HTTP 5xx, estouro da janela ou ambiente não saudável. Antes do protocolo final, uma tentativa parou no signup após 1/10 requisições e 2.164 ms, e outra completou 10/10. O protocolo final de três execuções independentes foi aprovado em 3/3, com todas as respostas HTTP 200 e dentro dos limites. A baseline controlada está concluída, mas não confirma rate limiting, resistência a carga ou ausência de vulnerabilidade. Não houve concorrência, carga, exaustão de recursos ou negação de serviço.
+
+A preparação estrutural da Fase 6 está documentada em `docs/dast-plan.md`. Nenhuma imagem ZAP foi baixada e nenhum scan foi executado. A execução futura depende de imagem oficial fixada por digest, OpenAPI temporária reduzida aos três endpoints permitidos, controles externos de interrupção, orçamento de requests e autorização específica.

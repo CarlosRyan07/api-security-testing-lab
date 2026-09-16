@@ -9,4 +9,5 @@
 - Nunca transforme indisponibilidade do sistema sob teste em sucesso e não registre tokens completos.
 - Use os comandos de validação: `mvn test-compile`, `mvn test -Dgroups=unit`, `mvn test -Dgroups=functional`, `mvn test -Dgroups=authentication`, `mvn test -Dgroups=input-validation`, `mvn test -Dgroups=security` e `mvn test`.
 - O cenário controlado da Fase 5 é excluído por padrão e só pode ser executado após autorização explícita com `mvn test -Dgroups=resource-abuse -Dexcluded.test.groups=__none__`.
+- Não execute OWASP ZAP sem autorização específica, OpenAPI temporária reduzida aos três endpoints permitidos, imagem fixada por digest e controles de interrupção descritos em `docs/dast-plan.md`.
 - Mantenha a documentação detalhada do projeto e de segurança em `README.md`, `ROADMAP.md` e `docs/`.
