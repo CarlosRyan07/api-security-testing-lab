@@ -7,7 +7,7 @@ Release estável atual: `v1.0.0`. O conteúdo da release está consolidado em `C
 | 0 | Bootstrap Maven, Java 17, configuração e documentação inicial | Implementada e compilada |
 | 1 | Signup, login, JWT, dashboard autenticado e massa dinâmica | Implementada e validada live |
 | 2 | Authentication Security | Baseline não destrutiva concluída e validada live |
-| 3 | Authorization Security | Pendente por limitação do ambiente/ferramenta |
+| 3 | Authorization Security | Não incluída na versão 1.0 |
 | 4 | Object and Input Security | Baseline permitida concluída e validada live |
 | 5 | Resource Abuse | Baseline controlada concluída; protocolo final 3/3 aprovado |
 | 6 | DAST com OWASP ZAP | Baseline passiva concluída; 9/10 requests e nenhum achado confirmado |
@@ -18,11 +18,9 @@ Release estável atual: `v1.0.0`. O conteúdo da release está consolidado em `C
 
 A Fase 0 compila com JDK 17, possui treze verificações unitárias da configuração, da massa dinâmica e do mapeamento de credenciais e registra a versão exata da OpenAPI oficial usada como baseline. A Fase 1 foi validada contra uma instância da branch oficial `main` da crAPI: os três cenários funcionais passaram, sem falhas, erros ou skips, e as três respostas `200` são confirmadas como JSON. O dashboard autenticado também valida identidade, papel, presença de todas as propriedades obrigatórias e os tipos numéricos declarados pela OpenAPI. A baseline não destrutiva da Fase 2 foi validada com quatro cenários de autenticação. A baseline permitida da Fase 4 possui vinte e três casos: cadastro duplicado; objeto vazio em signup e login; quatro tipos raiz não objeto em ambos; ausência individual e valor `null` nos quatro campos obrigatórios do signup e nos dois campos obrigatórios do login. Os testes continuam falhando explicitamente quando o sistema sob teste está indisponível.
 
-## Próxima etapa
+## Escopo futuro
 
-A implementação prática do cenário de autorização horizontal/BOLA da Fase 3 ficou pendente por limitação do ambiente/ferramenta. A fase não está concluída, não possui código implementado e nenhuma vulnerabilidade de autorização foi marcada como validada.
-
-Enquanto essa restrição permanecer, o trabalho pode continuar apenas em organização do projeto, documentação, cobertura funcional e negativa permitida e preparação estrutural das fases futuras. Não serão criados exploits fictícios nem resultados sem execução real.
+A Fase 3 não faz parte da versão 1.0. Ela não possui código implementado, execução live nem vulnerabilidade de autorização confirmada. Caso o projeto continue, esse escopo deverá ser planejado e validado antes de ser considerado concluído.
 
 A baseline segura da Fase 4 está concluída. Mass assignment, parameter tampering e autorização de propriedades permanecem sem implementação enquanto dependerem de conteúdo ou execução indisponível no ambiente.
 
@@ -34,6 +32,6 @@ A Fase 7 adiciona dois workflows independentes: compilação e testes unitários
 
 A Fase 8 possui processo de triagem, catálogo, template, política de evidências, estados do achado e critérios de admissão para regressões. Três testes unitários protegem a estrutura documental e o grupo `security-regression` é opt-in. Nenhum relatório concreto ou teste live foi criado porque não existe achado confirmado com alvo corrigido; uma execução com zero testes não é tratada como aprovação.
 
-O roadmap 0–8 está implementado até o limite das evidências e autorizações disponíveis. Permanecem pendentes a Fase 3, pela restrição já registrada, e a execução operacional da Fase 8 quando surgir um achado confirmado e corrigido.
+O roadmap 0–8 está implementado até o limite das evidências disponíveis. Permanecem fora da versão 1.0 a Fase 3 e a execução operacional da Fase 8, que depende de um achado confirmado e corrigido.
 
 Após a release `v1.0.0`, o repositório recebeu governança de contribuição e segurança: templates estruturados, política de disclosure privado, Dependabot alerts e security updates, sem habilitar merge automático.

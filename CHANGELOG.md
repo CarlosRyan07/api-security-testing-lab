@@ -31,7 +31,7 @@ Primeira baseline estável do laboratório black-box de testes da OWASP crAPI.
 
 ### Limitações conhecidas
 
-- A Fase 3 de autorização horizontal/BOLA permanece pendente pela restrição de ambiente/ferramenta já registrada.
+- A Fase 3 de autorização de objetos não faz parte da versão 1.0.
 - Não existe vulnerabilidade confirmada no catálogo nem teste `security-regression` elegível.
 - A baseline DAST foi passiva, limitada a três operações e ao orçamento autorizado; ela não demonstra ausência geral de vulnerabilidades.
 - Testes live não executam no runner público porque a crAPI não é provisionada no GitHub Actions.
