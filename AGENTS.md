@@ -19,3 +19,4 @@
 - Mantenha evidências brutas em `evidence/`, fora do Git, e registre somente descrições e hashes sanitizados.
 - Adicione testes `security-regression` apenas quando houver alvo corrigido verificável; o grupo permanece opt-in e zero testes nunca significa aprovação.
 - Envie alterações para `master` por branch e pull request; preserve os checks obrigatórios `Testes unitários` e `Segredos`, o histórico linear e a resolução de conversas.
+- Direcione bugs não sensíveis aos templates de issue e vulnerabilidades deste repositório ao relato privado descrito em `SECURITY.md`; nunca publique segredos ou evidências sensíveis em issues.

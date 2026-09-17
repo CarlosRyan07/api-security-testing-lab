@@ -2,6 +2,11 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## Não publicado
+
+- Adicionados guia de contribuição, política de segurança e templates de pull request e issue.
+- Habilitados Dependabot alerts, security updates e relato privado de vulnerabilidades no GitHub.
+
 ## 1.0.0 — 2026-09-16
 
 Primeira baseline estável do laboratório black-box de testes da OWASP crAPI.

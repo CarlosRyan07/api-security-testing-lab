@@ -35,3 +35,5 @@ A Fase 7 adiciona dois workflows independentes: compilação e testes unitários
 A Fase 8 possui processo de triagem, catálogo, template, política de evidências, estados do achado e critérios de admissão para regressões. Três testes unitários protegem a estrutura documental e o grupo `security-regression` é opt-in. Nenhum relatório concreto ou teste live foi criado porque não existe achado confirmado com alvo corrigido; uma execução com zero testes não é tratada como aprovação.
 
 O roadmap 0–8 está implementado até o limite das evidências e autorizações disponíveis. Permanecem pendentes a Fase 3, pela restrição já registrada, e a execução operacional da Fase 8 quando surgir um achado confirmado e corrigido.
+
+Após a release `v1.0.0`, o repositório recebeu governança de contribuição e segurança: templates estruturados, política de disclosure privado, Dependabot alerts e security updates, sem habilitar merge automático.
