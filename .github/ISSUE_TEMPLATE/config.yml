@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Relatar vulnerabilidade em privado
+    url: https://github.com/CarlosRyan07/api-security-testing-lab/security/advisories
+    about: Use este canal para falhas de segurança no código ou na automação deste repositório.
+  - name: Projeto OWASP crAPI
+    url: https://github.com/OWASP/crAPI/issues
+    about: Use o projeto upstream para defeitos pertencentes à aplicação crAPI.

@@ -216,6 +216,12 @@ Evidências brutas ficam fora do Git conforme [docs/evidence-handling.md](docs/e
 
 Nenhum teste de regressão live foi criado: não há achado confirmado nem alvo corrigido que sustente um cenário real. Quando esses pré-requisitos existirem, a admissão e a execução seguirão [docs/regression-testing.md](docs/regression-testing.md).
 
+## Contribuição e segurança
+
+O fluxo de branches, validação e pull requests está em [CONTRIBUTING.md](CONTRIBUTING.md). Use issues públicas somente para defeitos não sensíveis deste repositório. Vulnerabilidades em seu código, workflows ou scripts devem seguir [SECURITY.md](SECURITY.md) e ser enviadas pelo relato privado habilitado no GitHub.
+
+Dependabot alerts e security updates estão habilitados. Propostas automáticas nunca recebem merge automático: continuam sujeitas à política de versões, revisão e checks obrigatórios.
+
 ## Roadmap resumido
 
 As baselines das Fases 1, 2, 4, 5 e 6 estão implementadas e validadas dentro dos limites registrados. A Fase 7 possui CI Java, detecção de segredos e atualização automatizada de dependências, com os dois checks validados no GitHub. A estrutura de gestão e regressão da Fase 8 está implementada, sem fabricar achados ou aprovações com zero testes. A Fase 3 permanece pendente pela restrição do ambiente. Nenhum cenário indisponível, teste destrutivo ou resultado fictício foi adicionado.

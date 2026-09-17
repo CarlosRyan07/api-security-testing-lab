@@ -1,0 +1,71 @@
+name: Bug na suíte de testes
+description: Relate um defeito reproduzível no código, automação ou documentação deste repositório.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Não publique vulnerabilidades, segredos ou evidências sensíveis. Use o canal privado indicado em SECURITY.md. Para defeitos da aplicação crAPI, procure o projeto OWASP/crAPI.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área afetada
+      options:
+        - Código de teste Java
+        - Maven e dependências
+        - GitHub Actions e Dependabot
+        - Scripts e tooling
+        - Documentação
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: Comportamento observado
+      description: Descreva o defeito sem incluir tokens, credenciais ou dados pessoais.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Passos mínimos para reprodução
+      description: Inclua comandos e pré-condições; sanitize qualquer saída.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Comportamento esperado
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Informe sistema operacional, Java, Maven, commit e disponibilidade da crAPI.
+    validations:
+      required: true
+
+  - type: textarea
+    id: sanitized-output
+    attributes:
+      label: Saída sanitizada
+      description: Cole somente o trecho indispensável, sem JWT, senha, cookie, Authorization ou dado pessoal.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmações
+      options:
+        - label: Pesquisei issues existentes e não encontrei duplicata.
+          required: true
+        - label: Confirmei que este relato não contém vulnerabilidade, segredo ou evidência sensível.
+          required: true

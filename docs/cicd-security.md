@@ -27,6 +27,8 @@ O arquivo `.github/dependabot.yml` solicita atualizações semanais para Maven e
 
 A política Maven preserva as linhas aprovadas da baseline: ignora atualizações major do JUnit Jupiter e atualizações minor ou major do Maven Compiler Plugin. Atualizações patch continuam elegíveis, assim como atualizações de segurança, que não são bloqueadas por filtros de `update-types` aplicados a version updates.
 
+Dependabot alerts e security updates estão habilitados nas configurações do repositório. Quando o GitHub identificar uma dependência vulnerável com correção disponível, ele pode abrir um pull request; não há merge automático e os checks protegidos continuam obrigatórios.
+
 As primeiras propostas foram triadas e encerradas sem merge: o [PR #1](https://github.com/CarlosRyan07/api-security-testing-lab/pull/1) propunha Maven Compiler Plugin 3.16.0 fora da linha 3.14.x aprovada; o [PR #2](https://github.com/CarlosRyan07/api-security-testing-lab/pull/2) propunha a migração major para JUnit 6.1.3, enquanto o projeto exige JUnit 5.14.4. Checks verdes não substituíram a decisão explícita de compatibilidade.
 
 ## Proteção da branch
