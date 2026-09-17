@@ -44,7 +44,7 @@ Evoluir uma baseline funcional confiável da OWASP crAPI para testes automatizad
 
 - Baseline funcional.
 - Authentication Security.
-- Authorization Security: BOLA e BFLA quando aplicáveis.
+- Authorization Security, planejada para uma versão futura.
 - Object Property and Input Security: BOPLA, mass assignment e parameter tampering.
 - Resource Consumption e rate limiting.
 - DAST orientado pela OpenAPI.
@@ -60,9 +60,9 @@ O retorno `401` observado para credenciais desconhecidas não consta entre as re
 
 Brute force de OTP, reset de senha de terceiros e manipulação avançada de JWT permanecem excluídos desta baseline por serem técnicas de exploração, e não validações negativas mínimas.
 
-## Restrição da Fase 3
+## Escopo futuro de autorização
 
-A execução prática de autorização horizontal/BOLA está pendente por limitação do ambiente/ferramenta. Não há teste automatizado, evidência ou vulnerabilidade validada para a Fase 3. Enquanto a restrição permanecer, somente preparação estrutural, documentação e cobertura funcional ou negativa permitida serão realizadas.
+A Fase 3 não faz parte da versão 1.0. Não há teste automatizado, evidência ou vulnerabilidade validada para esse escopo.
 
 ## Execução permitida da Fase 4
 

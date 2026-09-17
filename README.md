@@ -142,16 +142,12 @@ Há grupos opcionais que não são executados por padrão:
 | 0 — Base do projeto | Concluída: Maven, Java 17, configuração e documentação inicial. |
 | 1 — Fluxo funcional | Concluída e validada contra a crAPI. |
 | 2 — Autenticação | Concluída: rejeições de credenciais e tokens inválidos. |
-| 3 — Autorização/BOLA | Pendente por restrição de ambiente e ferramenta. |
+| 3 — Autorização de objetos | Não incluída na versão 1.0. |
 | 4 — Validação de entrada | Concluída dentro do escopo permitido. |
 | 5 — Consumo de recursos | Concluída com baseline controlada; não incluiu carga, concorrência, negação de serviço nem validação de rate limiting. |
 | 6 — DAST passivo | Concluída dentro do orçamento autorizado; não houve vulnerabilidade confirmada. |
 | 7 — CI/CD | Concluída: testes unitários e detecção de segredos no GitHub Actions. |
 | 8 — Relato e regressão | Estrutura concluída; depende de um achado confirmado e corrigido para gerar uma regressão real. |
-
-### Sobre BOLA
-
-BOLA significa *Broken Object Level Authorization* — uma falha em que uma API permite que uma pessoa acesse ou altere um objeto que pertence a outra, como o pedido, perfil ou documento de outro usuário. A Fase 3 existe para investigar esse tipo de controle de acesso, mas não foi implementada por causa da restrição registrada no [ROADMAP.md](ROADMAP.md). Nenhuma vulnerabilidade foi inventada ou marcada como confirmada.
 
 ## Segurança e limites
 
