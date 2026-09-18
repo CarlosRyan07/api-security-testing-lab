@@ -113,6 +113,14 @@ Executar a suíte completa atual:
 mvn test
 ```
 
+## Evidência de execução
+
+A suíte padrão foi executada localmente com a crAPI disponível em `http://localhost:8888`. O resultado registrado foi de 54 testes aprovados, sem falhas, erros ou testes ignorados.
+
+![Resultado de uma execução local da suíte Maven: 54 testes aprovados e BUILD SUCCESS](docs/images/test-suite-success.png)
+
+A captura é uma evidência do resultado daquela execução. Para validar o estado atual, execute os comandos acima no seu ambiente.
+
 Há grupos opcionais que não são executados por padrão:
 
 - `resource-abuse`: verificação de baixo volume da Fase 5. Só execute com autorização explícita:
