@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.version>5.14.4</junit.version>
         <rest-assured.version>6.0.1</rest-assured.version>
-        <jackson.version>2.22.2</jackson.version>
+        <jackson.version>2.22.4</jackson.version>
         <maven.compiler.version>3.14.1</maven.compiler.version>
         <maven.surefire.version>3.6.1</maven.surefire.version>
         <excluded.test.groups>resource-abuse | tooling | security-regression</excluded.test.groups>
